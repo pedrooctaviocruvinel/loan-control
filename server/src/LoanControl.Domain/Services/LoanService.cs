@@ -8,6 +8,13 @@ public class LoanService(ILoanRepository loanRepository)
 {
     private readonly ILoanRepository _loanRepository = loanRepository;
 
+    public async Task<ResultWrapper<IList<Loan>>> List()
+    {
+        var loans = await _loanRepository.List();
+
+        return new ResultWrapper<IList<Loan>>(loans);
+    }
+
     public async Task<ResultWrapper> CreateLoan(Loan loan)
     {
         await _loanRepository.Add(loan);

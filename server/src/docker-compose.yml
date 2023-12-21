@@ -13,3 +13,18 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+  db:
+    container_name: db
+    image: postgres:15-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=c86d88854a0a0d8ddf2f73d3f1f70043
+      - POSTGRES_DB=LoanControl
+    volumes:
+      - locancontrol:/var/lib/postgresql/data
+
+volumes:
+  locancontrol:
+

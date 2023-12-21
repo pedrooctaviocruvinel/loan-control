@@ -22,7 +22,7 @@ internal static class SwaggerConfiguration
         {
             Title = $"Loan Control - {configuration["Environment"]}",
             Version = "1.0.0",
-            Description = "TODO",
+            Description = "An application to control loans.",
             Contact = new OpenApiContact
             {
                 Name = configuration["Contact:Name"],

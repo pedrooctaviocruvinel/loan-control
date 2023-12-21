@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+	<PropertyGroup Label="Globals">
+		<ProjectVersion>2.1</ProjectVersion>
+		<DockerTargetOS>Linux</DockerTargetOS>
+		<DockerPublishLocally>False</DockerPublishLocally>
+		<ProjectGuid>0605e29f-ca77-4dc5-991c-fb53511834b1</ProjectGuid>
+		<DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+		<DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+		<DockerServiceName>loancontrol.presentation</DockerServiceName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include=".dockerignore" />
+		<None Include="docker-compose.yml" />
+	</ItemGroup>
+</Project>

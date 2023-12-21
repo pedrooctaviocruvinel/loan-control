@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanControl.Presentation", "src\LoanControl.Presentation\LoanControl.Presentation.csproj", "{C2E1D899-1172-4A1A-B4EE-B5E22C66A443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanControl.Presentation", "src\LoanControl.Presentation\LoanControl.Presentation.csproj", "{C2E1D899-1172-4A1A-B4EE-B5E22C66A443}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{F32BDD13-D14E-433F-8BE3-2AE6D856B354}"
 EndProject
@@ -15,15 +15,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infrastructure", "3 - I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Cross Cutting", "4 - Cross Cutting", "{2F5D0F73-3EE1-48CA-811C-EB7B9E5D932F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanControl.Application", "src\LoanControl.Application\LoanControl.Application.csproj", "{8EACF9B0-AC4C-4BFD-8889-6DF6EEA2D640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanControl.Application", "src\LoanControl.Application\LoanControl.Application.csproj", "{8EACF9B0-AC4C-4BFD-8889-6DF6EEA2D640}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanControl.Domain", "src\LoanControl.Domain\LoanControl.Domain.csproj", "{B676D226-8735-48E0-B9BF-5E1F93842DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanControl.Domain", "src\LoanControl.Domain\LoanControl.Domain.csproj", "{B676D226-8735-48E0-B9BF-5E1F93842DCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanControl.Infrastructure", "src\LoanControl.Infrastructure\LoanControl.Infrastructure.csproj", "{EFCC4283-E3DC-40EB-8BED-BEFBF1534608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanControl.Infrastructure", "src\LoanControl.Infrastructure\LoanControl.Infrastructure.csproj", "{EFCC4283-E3DC-40EB-8BED-BEFBF1534608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanControl.CrossCutting", "src\LoanControl.CrossCutting\LoanControl.CrossCutting.csproj", "{BB26E15F-4716-4C1D-93CA-5B59787637D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanControl.CrossCutting", "src\LoanControl.CrossCutting\LoanControl.CrossCutting.csproj", "{BB26E15F-4716-4C1D-93CA-5B59787637D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanControl.CrossCutting.Core", "src\LoanControl.CrossCutting.Core\LoanControl.CrossCutting.Core.csproj", "{AF24E30D-2C25-4F03-83AD-C61EA351F7C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanControl.CrossCutting.Core", "src\LoanControl.CrossCutting.Core\LoanControl.CrossCutting.Core.csproj", "{AF24E30D-2C25-4F03-83AD-C61EA351F7C9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "src\docker-compose.dcproj", "{0605E29F-CA77-4DC5-991C-FB53511834B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{AF24E30D-2C25-4F03-83AD-C61EA351F7C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF24E30D-2C25-4F03-83AD-C61EA351F7C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF24E30D-2C25-4F03-83AD-C61EA351F7C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0605E29F-CA77-4DC5-991C-FB53511834B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0605E29F-CA77-4DC5-991C-FB53511834B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0605E29F-CA77-4DC5-991C-FB53511834B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0605E29F-CA77-4DC5-991C-FB53511834B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

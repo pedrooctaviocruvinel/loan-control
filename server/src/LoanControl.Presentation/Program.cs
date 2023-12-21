@@ -1,16 +1,15 @@
+using LoanControl.Presentation.Configurations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger(builder.Configuration);
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    app.UseSwagger(builder.Configuration);
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

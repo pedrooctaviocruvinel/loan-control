@@ -26,9 +26,9 @@ internal static class LoanSchema
                 .IsRequired();
 
             etb.Property(l => l.Value)
-                .HasColumnName("value")
-                .HasColumnType("decimal(18, 4)")
-                .IsRequired();
+               .HasColumnName("value")
+               .HasColumnType("decimal(18, 2)")
+               .IsRequired();
 
             etb.Property(l => l.CreatedAt)
                 .HasColumnName("created_at")

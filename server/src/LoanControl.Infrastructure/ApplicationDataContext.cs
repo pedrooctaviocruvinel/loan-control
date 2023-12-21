@@ -1,8 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LoanControl.Infrastructure.Schemas;
+using Microsoft.EntityFrameworkCore;
 
 namespace LoanControl.Infrastructure;
 
-public class ApplicationDataContext : DbContext
+public class ApplicationDataContext(DbContextOptions<ApplicationDataContext> options) : DbContext(options)
 {
-    public ApplicationDataContext(DbContextOptions<ApplicationDataContext> options) : base(options) { }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ConfigureLoanSchema();
+
+        base.OnModelCreating(modelBuilder);
+    }
 }

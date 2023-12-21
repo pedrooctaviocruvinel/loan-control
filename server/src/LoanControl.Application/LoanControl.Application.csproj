@@ -5,4 +5,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\LoanControl.CrossCutting.Core\LoanControl.CrossCutting.Core.csproj" />
+	  <ProjectReference Include="..\LoanControl.Domain\LoanControl.Domain.csproj" />
+	</ItemGroup>
+
 </Project>

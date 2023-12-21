@@ -12,4 +12,10 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\LoanControl.Application\LoanControl.Application.csproj" />
+		<ProjectReference Include="..\LoanControl.CrossCutting.Core\LoanControl.CrossCutting.Core.csproj" />
+		<ProjectReference Include="..\LoanControl.CrossCutting\LoanControl.CrossCutting.csproj" />
+	</ItemGroup>
+
 </Project>

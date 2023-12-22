@@ -24,6 +24,12 @@ if (app.Environment.IsDevelopment())
 if (app.Environment.IsDevelopment())
     app.UseSwagger(builder.Configuration);
 
+app.UseCors(cpb =>
+{
+    cpb.AllowAnyMethod();
+    cpb.AllowAnyOrigin();
+    cpb.AllowAnyHeader();
+});
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

@@ -1,5 +1,7 @@
+import { FormEvent } from 'react';
 import { ListLoansResult } from '../types/loan/listLoansResult';
 import { ResultWrapper } from '../types/resultWrapper';
+import CreateLoanComponent from './CreateLoanComponent';
 
 async function listLoans(): Promise<ResultWrapper<ListLoansResult[]>> {
   const listLoansResponse = await fetch(
@@ -13,12 +15,15 @@ export default async function Page() {
   const listLoansResult = await listLoans();
 
   return (
-    <div>
-      {listLoansResult.data.map((llr) => (
-        <li>
-          {llr.id},{llr.name},{llr.value},{llr.createdAt.toString()}
-        </li>
-      ))}
-    </div>
+    <>
+      <CreateLoanComponent />
+      <div>
+        {listLoansResult.data.map((llr) => (
+          <li>
+            {llr.id},{llr.name},{llr.value},{llr.createdAt.toString()}
+          </li>
+        ))}
+      </div>
+    </>
   );
 }

@@ -2,7 +2,9 @@ import { ListLoansResult } from '../types/loan/listLoansResult';
 import { ResultWrapper } from '../types/resultWrapper';
 
 async function listLoans(): Promise<ResultWrapper<ListLoansResult[]>> {
-  const listLoansResponse = await fetch('https://localhost:55790/api/Loans');
+  const listLoansResponse = await fetch(
+    process.env.NEXT_PUBLIC_SERVER_URL + '/loans'
+  );
 
   return await listLoansResponse.json();
 }

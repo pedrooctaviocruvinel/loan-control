@@ -1,4 +1,3 @@
-import { FormEvent } from 'react';
 import { ListLoansResult } from '../types/loan/listLoansResult';
 import { ResultWrapper } from '../types/resultWrapper';
 import CreateLoanComponent from './CreateLoanComponent';
@@ -19,7 +18,7 @@ export default async function Page() {
       <CreateLoanComponent />
       <div>
         {listLoansResult.data.map((llr) => (
-          <li>
+          <li key={llr.id}>
             {llr.id},{llr.name},{llr.value},{llr.createdAt.toString()}
           </li>
         ))}

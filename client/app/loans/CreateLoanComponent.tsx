@@ -22,7 +22,7 @@ async function onSubmit(event: FormEvent<HTMLFormElement>) {
   const data = await response.json();
 }
 
-export default async function CreateLoanComponent() {
+export default function CreateLoanComponent() {
   return (
     <>
       <form onSubmit={onSubmit}>

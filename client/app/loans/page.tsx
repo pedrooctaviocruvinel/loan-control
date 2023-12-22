@@ -1,6 +1,7 @@
-import { ResultWrapper } from "@/types/resultWrapper";
-import CreateLoanComponent from "./CreateLoanComponent";
-import { ListLoansResult } from "@/types/loan/listLoansResult";
+import { ListLoansResult } from '@/types/loan/listLoansResult';
+import { ResultWrapper } from '@/types/resultWrapper';
+
+import CreateLoanComponent from './CreateLoanComponent';
 
 async function listLoans(): Promise<ResultWrapper<ListLoansResult[]>> {
   const listLoansResponse = await fetch(

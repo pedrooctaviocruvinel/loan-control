@@ -1,7 +1,8 @@
 'use client';
 
-import { CreateLoanRequest } from '@/types/loan/createLoanRequest';
 import { FormEvent } from 'react';
+
+import { CreateLoanRequest } from '@/types/loan/createLoanRequest';
 
 async function onSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();

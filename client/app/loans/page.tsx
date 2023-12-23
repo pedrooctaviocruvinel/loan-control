@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+import { CardComponent } from '@/components/CardComponent';
 import { ListLoansResult } from '@/types/loan/listLoansResult';
 import { ResultWrapper } from '@/types/resultWrapper';
 
@@ -13,18 +14,14 @@ async function listLoans(): Promise<ResultWrapper<ListLoansResult[]>> {
   return await listLoansResponse.json();
 }
 
-export default async function Page() {
+async function LoansListComponent() {
   const listLoansResult = await listLoans();
 
   return (
-    <div>
-      <h1 className='text-6xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white'>
-        Loans
-      </h1>
-
-      <div className='relative overflow-x-auto'>
-        <table className='w-full text-left text-sm text-gray-500 dark:text-gray-400'>
-          <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+    <CardComponent title='List of Loans'>
+      <div className='overflow-x-auto'>
+        <table className='w-full text-left'>
+          <thead className='text-sm font-bold uppercase text-gray-700'>
             <tr>
               <th scope='col' className='px-6 py-3'>
                 Name
@@ -35,30 +32,58 @@ export default async function Page() {
               <th scope='col' className='px-6 py-3'>
                 Created At
               </th>
+              <th scope='col' className='px-6 py-3'>
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {listLoansResult.data.map((llr) => (
-              <tr
-                className='border-b bg-white dark:border-gray-700 dark:bg-gray-800'
-                key={llr.id}
-              >
-                <th
-                  scope='row'
-                  className='whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white'
-                >
+              <tr className='border-t font-light text-gray-600' key={llr.id}>
+                <td scope='row' className='px-6 py-4 font-medium'>
                   {llr.name}
-                </th>
-                <td className='px-6 py-4'>{llr.value}</td>
+                </td>
+                <td className='px-6 py-4'>
+                  {llr.value.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}
+                </td>
                 <td className='px-6 py-4'>
                   {moment(llr.createdAt).format('MM/DD/YYYY HH:mm')}
+                </td>
+                <td className='px-6 py-4'>
+                  <div className='lg:flex lg:flex-row'>
+                    <div className='w-full lg:mr-4'>
+                      <button className='w-full rounded-lg bg-emerald-500 p-2 font-medium text-white hover:bg-emerald-700 hover:text-gray-100'>
+                        View
+                      </button>
+                    </div>
+                    <div className='w-full max-lg:mt-4 lg:mr-4'>
+                      <button className='w-full rounded-lg bg-emerald-500 p-2 font-medium text-white hover:bg-emerald-700 hover:text-gray-100'>
+                        Edit
+                      </button>
+                    </div>
+                    <div className='w-full max-lg:mt-4'>
+                      <button className='w-full rounded-lg bg-emerald-500 p-2 font-medium text-white hover:bg-emerald-700 hover:text-gray-100'>
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+    </CardComponent>
+  );
+}
 
+export default async function Page() {
+  return (
+    <div>
+      <LoansListComponent />
       <CreateLoanComponent />
     </div>
   );

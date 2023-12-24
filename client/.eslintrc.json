@@ -28,10 +28,13 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error"
       }
     },
     {
+      "plugins": ["simple-import-sort"],
       "files": ["*.html"],
       "extends": [
         "plugin:@angular-eslint/template/recommended",

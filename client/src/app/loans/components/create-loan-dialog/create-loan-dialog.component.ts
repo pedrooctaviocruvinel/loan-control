@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import {
 	FormBuilder,
 	FormGroup,
-	FormsModule,
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
@@ -15,9 +14,9 @@ import {
 	MatDialogRef,
 	MatDialogTitle,
 } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+import { environment } from '../../../../environments/environment';
 import { headers } from '../../../../shared/headers';
 import { DialogResult } from '../../../../shared/types/dialogResult';
 import { ResultWrapper } from '../../../../shared/types/resultWrapper';
@@ -31,9 +30,7 @@ type CreateLoanRequest = {
 	selector: 'app-create-loan-dialog',
 	standalone: true,
 	imports: [
-		MatFormFieldModule,
 		MatInputModule,
-		FormsModule,
 		MatButtonModule,
 		MatDialogTitle,
 		MatDialogContent,
@@ -61,14 +58,11 @@ export class CreateLoanDialogComponent {
 			value: this.createLoanForm.value.value,
 		};
 
-		const createLoanResponse = await fetch(
-			'https://localhost:64950/api/Loans',
-			{
-				method: 'POST',
-				headers: headers,
-				body: JSON.stringify(createLoanRequest),
-			}
-		);
+		const createLoanResponse = await fetch(environment.serverUrl + '/Loans', {
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify(createLoanRequest),
+		});
 
 		const createLoanResult: ResultWrapper<void> =
 			await createLoanResponse.json();

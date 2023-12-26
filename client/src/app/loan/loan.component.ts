@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { registerLocaleData } from '@angular/common';
-import ptBr from '@angular/common/locales/pt';
-import {
-	Component,
-	DEFAULT_CURRENCY_CODE,
-	LOCALE_ID,
-	OnInit,
-	ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -15,16 +7,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ResultWrapper } from '../../shared/types/resultWrapper';
 import { ListLoansResult } from './listLoansResult';
 
-registerLocaleData(ptBr);
-
 @Component({
 	selector: 'app-loan',
 	standalone: true,
 	imports: [MatButtonModule, MatTableModule, CommonModule, MatSortModule],
-	providers: [
-		{ provide: LOCALE_ID, useValue: 'pt' },
-		{ provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
-	],
 	templateUrl: './loan.component.html',
 })
 export class LoanComponent implements OnInit {

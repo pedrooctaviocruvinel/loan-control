@@ -16,8 +16,8 @@ An application to control loans.
 - Server:
     - Run "docker-compose up" in the *"server/src"* folder of the project.
 - Client:
-    - Install necessary dependencies running *"yarn install"* in the *"src/client"* folder;
-    - Execute de application running *"yarn dev"* in the *"src/client"* folder.
+    - Install necessary dependencies running *"yarn install"* in the *"client"* folder;
+    - Execute de application running *"yarn start"* in the *"client"* folder.
 
 ## MADE WITH
 - Server:
@@ -27,9 +27,9 @@ An application to control loans.
     - [MediatR](https://www.nuget.org/packages/MediatR);
     - [Entity Framework Core](https://docs.microsoft.com/ef/).
 - Client:
-    - [ReactJS](https://react.dev/);
-    - [NextJS](https://nextjs.org/);
+    - [Angular](https://angular.io/);
+    - [Angular Material](https://material.angular.io/);
     - [TypeScript](https://www.typescriptlang.org/);
-    - [Tailwind CSS](https://tailwindcss.com/);
+    - [Bootstrap](https://getbootstrap.com/);
     - [ESLint](https://eslint.org/);
     - [Prettier](https://prettier.io/).

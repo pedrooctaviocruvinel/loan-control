@@ -6,8 +6,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
-import { DialogResult } from '../../shared/types/dialogResult';
-import { ResultWrapper } from '../../shared/types/resultWrapper';
+import { DialogResult } from '@/shared/types/dialogResult';
+import { ResultWrapper } from '@/shared/types/resultWrapper';
+
 import { CreateLoanDialogComponent } from './components/create-loan-dialog/create-loan-dialog.component';
 import { ListLoansResult } from './listLoansResult';
 

@@ -16,10 +16,10 @@ import {
 } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
-import { environment } from '../../../../environments/environment';
-import { headers } from '../../../../shared/headers';
-import { DialogResult } from '../../../../shared/types/dialogResult';
-import { ResultWrapper } from '../../../../shared/types/resultWrapper';
+import { environment } from '@/environments/environment';
+import { headers } from '@/shared/headers';
+import { DialogResult } from '@/shared/types/dialogResult';
+import { ResultWrapper } from '@/shared/types/resultWrapper';
 
 type CreateLoanRequest = {
 	name: string;

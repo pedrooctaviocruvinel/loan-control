@@ -18,7 +18,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+import { headers } from '../../../../shared/headers';
 import { DialogResult } from '../../../../shared/types/dialogResult';
+import { ResultWrapper } from '../../../../shared/types/resultWrapper';
 
 type CreateLoanRequest = {
 	name: string;
@@ -59,11 +61,21 @@ export class CreateLoanDialogComponent {
 			value: this.createLoanForm.value.value,
 		};
 
-		console.log('createLoanRequest', createLoanRequest);
+		const createLoanResponse = await fetch(
+			'https://localhost:64950/api/Loans',
+			{
+				method: 'POST',
+				headers: headers,
+				body: JSON.stringify(createLoanRequest),
+			}
+		);
+
+		const createLoanResult: ResultWrapper<void> =
+			await createLoanResponse.json();
 
 		this.dialogResult = {
-			success: true,
-			errors: ['unexpected error'],
+			success: createLoanResult.success,
+			errors: createLoanResult.errors,
 		};
 
 		this.dialogRef.close(this.dialogResult);

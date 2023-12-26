@@ -1,5 +1,7 @@
 <div class="container">
-	<button mat-raised-button color="primary">Primary</button>
+	<button mat-raised-button color="primary" (click)="openDialog()">
+		Create Loan
+	</button>
 	<table mat-table [dataSource]="loansDataSource" matSort>
 		<ng-container matColumnDef="name">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>

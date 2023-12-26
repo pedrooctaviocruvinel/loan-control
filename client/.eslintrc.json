@@ -37,6 +37,7 @@
 			"plugins": ["simple-import-sort"],
 			"files": ["*.html"],
 			"extends": [
+				"plugin:@typescript-eslint/recommended",
 				"plugin:@angular-eslint/template/recommended",
 				"plugin:@angular-eslint/template/accessibility",
 				"plugin:prettier/recommended"

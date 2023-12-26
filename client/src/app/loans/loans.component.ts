@@ -25,7 +25,7 @@ import { ListLoansResult } from './listLoansResult';
 	templateUrl: './loans.component.html',
 })
 export class LoansComponent implements OnInit {
-	constructor(public dialog: MatDialog) { }
+	constructor(public dialog: MatDialog) {}
 
 	dialogResult: DialogResult;
 

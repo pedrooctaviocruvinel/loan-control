@@ -1,9 +1,9 @@
 {
 	"root": true,
-	"ignorePatterns": ["projects/**/*"],
 	"overrides": [
 		{
 			"files": ["*.ts"],
+			"plugins": ["simple-import-sort"],
 			"extends": [
 				"eslint:recommended",
 				"plugin:@typescript-eslint/recommended",
@@ -13,6 +13,8 @@
 			],
 			"rules": {
 				"no-unused-vars": "error",
+				"simple-import-sort/imports": "error",
+				"simple-import-sort/exports": "error",
 				"@angular-eslint/directive-selector": [
 					"error",
 					{
@@ -28,13 +30,10 @@
 						"prefix": "app",
 						"style": "kebab-case"
 					}
-				],
-				"simple-import-sort/imports": "error",
-				"simple-import-sort/exports": "error"
+				]
 			}
 		},
 		{
-			"plugins": ["simple-import-sort"],
 			"files": ["*.html"],
 			"extends": [
 				"plugin:@typescript-eslint/recommended",

@@ -22,10 +22,10 @@ import { ListLoansResult } from './listLoansResult';
 		MatDialogModule,
 		ReactiveFormsModule,
 	],
-	templateUrl: './loan.component.html',
+	templateUrl: './loans.component.html',
 })
-export class LoanComponent implements OnInit {
-	constructor(public dialog: MatDialog) {}
+export class LoansComponent implements OnInit {
+	constructor(public dialog: MatDialog) { }
 
 	dialogResult: DialogResult;
 

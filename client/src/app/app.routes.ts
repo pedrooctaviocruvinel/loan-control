@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { LoanComponent } from './loan/loan.component';
+import { LoansComponent } from './loans/loans.component';
 
-export const routes: Routes = [{ path: 'loans', component: LoanComponent }];
+export const routes: Routes = [{ path: 'loans', component: LoansComponent }];

@@ -26,7 +26,10 @@ internal class LoanHandlers(LoanService loanService, IMapper mapper) :
 
     public async Task<ResultWrapper> Handle(CreateLoanCommandRequest commandRequest, CancellationToken cancellationToken)
     {
-        var loan = new Loan(commandRequest.Name, commandRequest.Value);
+        var loan = new Loan(commandRequest.Name, commandRequest.TotalFunded);
+        var payments = commandRequest.Payments.Select(p => new Payment(p.Value, p.Paid, p.ExpirationDate)).ToList();
+
+        loan.AddPayments(payments);
 
         var createLoanResult = await _loanService.CreateLoan(loan);
 

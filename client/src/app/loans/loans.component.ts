@@ -6,7 +6,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
-import { DialogResult } from '@/shared/types/dialogResult';
+import { environment } from '@/environments/environment';
 import { ResultWrapper } from '@/shared/types/resultWrapper';
 
 import { CreateLoanDialogComponent } from './components/create-loan-dialog/create-loan-dialog.component';
@@ -28,12 +28,18 @@ import { ListLoansResult } from './listLoansResult';
 export class LoansComponent implements OnInit {
 	constructor(public dialog: MatDialog) {}
 
-	dialogResult: DialogResult;
+	async ngOnInit(): Promise<void> {
+		await this.listLoans();
+	}
+
+	loansDataSource = new MatTableDataSource<ListLoansResult>();
+	loansDataSourceColumns = ['name', 'totalFunded', 'createdAt'];
+
+	@ViewChild(MatSort) sort: MatSort;
 
 	openDialog(): void {
 		const dialogRef = this.dialog.open(CreateLoanDialogComponent, {
 			width: '100%',
-			data: this.dialogResult,
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -41,17 +47,8 @@ export class LoansComponent implements OnInit {
 		});
 	}
 
-	async ngOnInit(): Promise<void> {
-		await this.listLoans();
-	}
-
-	public loansDataSource = new MatTableDataSource<ListLoansResult>();
-	loansDataSourceColumns = ['name', 'value', 'createdAt'];
-
-	@ViewChild(MatSort) sort: MatSort;
-
 	async listLoans(): Promise<void> {
-		const listLoansResponse = await fetch('https://localhost:64950/api/Loans');
+		const listLoansResponse = await fetch(environment.serverUrl + '/Loans');
 		const listLoansResult: ResultWrapper<ListLoansResult[]> =
 			await listLoansResponse.json();
 

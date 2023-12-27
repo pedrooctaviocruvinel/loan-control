@@ -1,6 +1,6 @@
 export type ListLoansResult = {
 	id: string;
 	name: string;
-	value: number;
+	totalFunded: number;
 	createdAt: Date;
 };

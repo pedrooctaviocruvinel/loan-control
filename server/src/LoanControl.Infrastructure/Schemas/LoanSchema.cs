@@ -5,8 +5,7 @@ namespace LoanControl.Infrastructure.Schemas;
 
 internal static class LoanSchema
 {
-    public static void ConfigureLoanSchema(this ModelBuilder modelBuilder)
-    {
+    public static void ConfigureLoanSchema(this ModelBuilder modelBuilder) =>
         modelBuilder.Entity<Loan>(etb =>
         {
             etb.ToTable("loans");
@@ -25,8 +24,8 @@ internal static class LoanSchema
                 .HasColumnType("varchar(25)")
                 .IsRequired();
 
-            etb.Property(l => l.Value)
-               .HasColumnName("value")
+            etb.Property(l => l.TotalFunded)
+               .HasColumnName("total_funded")
                .HasColumnType("decimal(18, 2)")
                .IsRequired();
 
@@ -39,6 +38,8 @@ internal static class LoanSchema
                 .HasColumnName("updated_at")
                 .HasColumnType("timestamptz")
                 .IsRequired();
+
+            etb.HasMany(l => l.Payments)
+                .WithOne(p => p.Loan);
         });
-    }
 }

@@ -109,16 +109,11 @@
 	<h1>Payments</h1>
 
 	<table mat-table [dataSource]="paymentsDataSource" matSort>
-		<ng-container matColumnDef="totalFunded">
+		<ng-container matColumnDef="value">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
 			<td mat-cell *matCellDef="let element">
 				{{ element.value | currency }}
 			</td>
-		</ng-container>
-
-		<ng-container matColumnDef="value">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
-			<td mat-cell *matCellDef="let element">{{ element.value }}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="paid">
@@ -143,7 +138,13 @@
 						<button mat-flat-button color="primary" class="w-100">Edit</button>
 					</div>
 					<div class="col">
-						<button mat-flat-button color="warn" class="w-100">Remove</button>
+						<button
+							mat-flat-button
+							color="warn"
+							class="w-100"
+							(click)="deletePayment(element.id)">
+							Remove
+						</button>
 					</div>
 				</div>
 			</td>

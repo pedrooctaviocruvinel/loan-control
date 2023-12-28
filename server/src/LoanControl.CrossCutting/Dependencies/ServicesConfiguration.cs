@@ -5,6 +5,9 @@ namespace LoanControl.CrossCutting.Dependencies;
 
 internal static class ServicesConfiguration
 {
-    public static void AddServices(this IServiceCollection services) =>
+    public static void AddServices(this IServiceCollection services)
+    {
         services.AddTransient<LoanService>();
+        services.AddTransient<PaymentService>();
+    }
 }

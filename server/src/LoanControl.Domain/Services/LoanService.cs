@@ -26,7 +26,7 @@ public class LoanService(ILoanRepository loanRepository)
         return new ResultWrapper<Loan>(loan);
     }
 
-    public async Task<ResultWrapper> CreateLoan(Loan loan)
+    public async Task<ResultWrapper> Create(Loan loan)
     {
         await _loanRepository.Add(loan);
         await _loanRepository.SaveChanges();

@@ -16,5 +16,6 @@ internal static class DataContextConfiguration
                 actions => actions.MigrationsAssembly("LoanControl.Infrastructure")));
 
         services.AddTransient<ILoanRepository, LoanRepository>();
+        services.AddTransient<IPaymentRepository, PaymentRepository>();
     }
 }

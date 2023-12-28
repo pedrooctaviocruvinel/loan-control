@@ -120,6 +120,20 @@ export class LoanComponent implements OnInit {
 		console.log(deleteLoanResult);
 	}
 
+	async deletePayment(id: string): Promise<void> {
+		const deletePaymentResponse = await fetch(
+			`${environment.serverUrl}/loans/payments/${id}`,
+			{
+				method: 'DELETE',
+			}
+		);
+
+		const deletePaymentResult: ResultWrapper<void> =
+			await deletePaymentResponse.json();
+
+		console.log(deletePaymentResult);
+	}
+
 	get loan() {
 		return this.updateLoanForm.controls;
 	}

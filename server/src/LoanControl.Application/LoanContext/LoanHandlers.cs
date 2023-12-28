@@ -46,7 +46,7 @@ internal class LoanHandlers(LoanService loanService, IMapper mapper) :
 
         loan.AddPayments(payments);
 
-        var createLoanResult = await _loanService.CreateLoan(loan);
+        var createLoanResult = await _loanService.Create(loan);
 
         return createLoanResult;
     }

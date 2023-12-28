@@ -90,7 +90,13 @@
 						</div>
 
 						<div class="col">
-							<button mat-flat-button color="warn" class="w-100">Remove</button>
+							<button
+								mat-flat-button
+								color="warn"
+								class="w-100"
+								(click)="deleteLoan()">
+								Delete
+							</button>
 						</div>
 					</div>
 				</div>
@@ -125,7 +131,7 @@
 		<ng-container matColumnDef="expirationDate">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header>Expiration Date</th>
 			<td mat-cell *matCellDef="let element">
-				{{ element.expirationDate | date: 'short' }}
+				{{ element.expirationDate | date: 'shortDate' }}
 			</td>
 		</ng-container>
 

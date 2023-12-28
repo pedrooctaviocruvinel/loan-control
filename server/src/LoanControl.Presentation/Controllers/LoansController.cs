@@ -57,4 +57,15 @@ public class LoansController(IMediator mediator) : ControllerBase
 
         return Ok(updateLoanResult);
     }
+
+    [HttpDelete("{Id}")]
+    public async Task<IActionResult> DeleteLoan([FromRoute] DeleteLoanCommandRequest commandRequest)
+    {
+        var deleteLoandResult = await _mediator.Send(commandRequest);
+
+        if (!deleteLoandResult.Success)
+            return BadRequest(deleteLoandResult);
+
+        return Ok(deleteLoandResult);
+    }
 }

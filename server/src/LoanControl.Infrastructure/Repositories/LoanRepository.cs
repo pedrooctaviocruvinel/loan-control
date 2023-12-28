@@ -24,9 +24,12 @@ public class LoanRepository(ApplicationDataContext applicationDataContext) : ILo
     public async Task Add(Loan loan) =>
         await _applicationDataContext.Loans.AddAsync(loan);
 
-    public async Task SaveChanges() =>
-        await _applicationDataContext.SaveChangesAsync();
-
     public void Update(Loan loan) =>
         _applicationDataContext.Loans.Update(loan);
+
+    public void Delete(Loan loan) =>
+        _applicationDataContext.Loans.Remove(loan);
+
+    public async Task SaveChanges() =>
+        await _applicationDataContext.SaveChangesAsync();
 }

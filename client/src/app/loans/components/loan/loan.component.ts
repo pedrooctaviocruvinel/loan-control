@@ -106,6 +106,20 @@ export class LoanComponent implements OnInit {
 		console.log(updateLoanResult);
 	}
 
+	async deleteLoan(): Promise<void> {
+		const deleteLoanResponse = await fetch(
+			`${environment.serverUrl}/loans/${this.id}`,
+			{
+				method: 'DELETE',
+			}
+		);
+
+		const deleteLoanResult: ResultWrapper<void> =
+			await deleteLoanResponse.json();
+
+		console.log(deleteLoanResult);
+	}
+
 	get loan() {
 		return this.updateLoanForm.controls;
 	}

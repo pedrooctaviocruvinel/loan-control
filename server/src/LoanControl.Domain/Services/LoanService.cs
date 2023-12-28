@@ -48,4 +48,17 @@ public class LoanService(ILoanRepository loanRepository)
 
         return new ResultWrapper();
     }
+
+    public async Task<ResultWrapper> Delete(Guid id)
+    {
+        var loan = await _loanRepository.GetById(id);
+
+        if (loan == null)
+            return new ResultWrapper(EErrorCode.LoanDoesntExists);
+
+        _loanRepository.Delete(loan);
+        await _loanRepository.SaveChanges();
+
+        return new ResultWrapper();
+    }
 }

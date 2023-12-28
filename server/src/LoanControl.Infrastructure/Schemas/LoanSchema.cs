@@ -40,6 +40,7 @@ internal static class LoanSchema
                 .IsRequired();
 
             etb.HasMany(l => l.Payments)
-                .WithOne(p => p.Loan);
+                .WithOne(p => p.Loan)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 }

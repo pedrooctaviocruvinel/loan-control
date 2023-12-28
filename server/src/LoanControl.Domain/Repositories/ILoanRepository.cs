@@ -8,5 +8,6 @@ public interface ILoanRepository
     Task<Loan> GetById(Guid id, bool includePayments = false);
     Task Add(Loan loan);
     void Update(Loan loan);
+    void Delete(Loan loan);
     Task SaveChanges();
 }

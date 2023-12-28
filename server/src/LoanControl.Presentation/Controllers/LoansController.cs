@@ -44,4 +44,17 @@ public class LoansController(IMediator mediator) : ControllerBase
 
         return Ok(createLoanResult);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateLoan([FromRoute] Guid id, [FromBody] UpdateLoanCommandRequest commandRequest)
+    {
+        commandRequest.SetId(id);
+
+        var updateLoanResult = await _mediator.Send(commandRequest);
+
+        if (!updateLoanResult.Success)
+            return BadRequest(updateLoanResult);
+
+        return Ok(updateLoanResult);
+    }
 }

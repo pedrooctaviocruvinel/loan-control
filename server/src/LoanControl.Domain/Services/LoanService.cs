@@ -18,7 +18,7 @@ public class LoanService(ILoanRepository loanRepository)
 
     public async Task<ResultWrapper<Loan>> GetById(Guid id)
     {
-        var loan = await _loanRepository.GetById(id);
+        var loan = await _loanRepository.GetById(id, true);
 
         if (loan == null)
             return new ResultWrapper<Loan>(EErrorCode.LoanDoesntExists);
@@ -29,6 +29,21 @@ public class LoanService(ILoanRepository loanRepository)
     public async Task<ResultWrapper> CreateLoan(Loan loan)
     {
         await _loanRepository.Add(loan);
+        await _loanRepository.SaveChanges();
+
+        return new ResultWrapper();
+    }
+
+    public async Task<ResultWrapper> Update(Guid id, string name, decimal totalFunded)
+    {
+        var loan = await _loanRepository.GetById(id);
+
+        if (loan == null)
+            return new ResultWrapper(EErrorCode.LoanDoesntExists);
+
+        loan.Update(name, totalFunded);
+
+        _loanRepository.Update(loan);
         await _loanRepository.SaveChanges();
 
         return new ResultWrapper();

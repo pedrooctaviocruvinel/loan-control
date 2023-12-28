@@ -1,88 +1,149 @@
-@if (loan != null) {
-	<mat-form-field class="w-100">
-		<mat-label>Name</mat-label>
-		<input value="{{ loan.name }}" matInput />
-	</mat-form-field>
+<div>
+	@if (loan != null) {
+		<h1>Loan</h1>
 
-	<mat-form-field class="w-100">
-		<mat-label>Total Funded</mat-label>
-		<input
-			value="{{ loan.totalFunded }}"
-			matInput
-			type="number"
-			placeholder="0" />
-	</mat-form-field>
-
-	<mat-form-field class="w-100">
-		<mat-label>Created At</mat-label>
-		<input
-			value="{{ loan.createdAt }}"
-			matInput
-			[matDatepicker]="createdAt"
-			disabled />
-		<mat-datepicker-toggle
-			matIconSuffix
-			[for]="updatedAt"></mat-datepicker-toggle>
-		<mat-datepicker #createdAt></mat-datepicker>
-	</mat-form-field>
-
-	<mat-form-field class="w-100">
-		<mat-label>Updated At</mat-label>
-		<input
-			value="{{ loan.updatedAt }}"
-			matInput
-			[matDatepicker]="updatedAt"
-			disabled />
-		<mat-datepicker-toggle
-			matIconSuffix
-			[for]="updatedAt"></mat-datepicker-toggle>
-		<mat-datepicker #updatedAt></mat-datepicker>
-	</mat-form-field>
-}
-
-<h1>Payments:</h1>
-
-<table mat-table [dataSource]="paymentsDataSource" matSort>
-	<ng-container matColumnDef="totalFunded">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
-		<td mat-cell *matCellDef="let element">
-			{{ element.value | currency }}
-		</td>
-	</ng-container>
-
-	<ng-container matColumnDef="value">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
-		<td mat-cell *matCellDef="let element">{{ element.value }}</td>
-	</ng-container>
-
-	<ng-container matColumnDef="paid">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
-		<td mat-cell *matCellDef="let element">
-			{{ element.paid }}
-		</td>
-	</ng-container>
-
-	<ng-container matColumnDef="expirationDate">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>Expiration Date</th>
-		<td mat-cell *matCellDef="let element">
-			{{ element.expirationDate | date: 'short' }}
-		</td>
-	</ng-container>
-
-	<ng-container matColumnDef="actions">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
-		<td mat-cell *matCellDef="let element">
+		<form [formGroup]="updateLoanForm">
 			<div class="row">
 				<div class="col">
-					<button mat-flat-button color="primary" class="w-100">Edit</button>
+					<mat-form-field class="w-100">
+						<mat-label>Name</mat-label>
+						<input formControlName="name" matInput />
+					</mat-form-field>
+
+					@if (loan.name.touched) {
+						<div>
+							@if (loan.name.errors?.required) {
+								<p class="d-block invalid-feedback">* required</p>
+							}
+
+							@if (loan.name.errors?.maxlength) {
+								<p class="d-block invalid-feedback">
+									* maximum length of 25 characters
+								</p>
+							}
+						</div>
+					}
 				</div>
+
 				<div class="col">
-					<button mat-flat-button color="warn" class="w-100">Remove</button>
+					<mat-form-field class="col w-100">
+						<mat-label>Total Funded</mat-label>
+						<input
+							formControlName="totalFunded"
+							matInput
+							type="number"
+							placeholder="0" />
+					</mat-form-field>
+
+					@if (loan.totalFunded.touched) {
+						@if (loan.totalFunded.errors?.required) {
+							<p class="d-block invalid-feedback">* required</p>
+						}
+
+						@if (loan.totalFunded.errors?.min) {
+							<p class="d-block invalid-feedback">* at least R$ 1</p>
+						}
+					}
 				</div>
 			</div>
-		</td>
-	</ng-container>
 
-	<tr mat-header-row *matHeaderRowDef="paymentsDataSourceColumns"></tr>
-	<tr mat-row *matRowDef="let row; columns: paymentsDataSourceColumns"></tr>
-</table>
+			<div class="row">
+				<mat-form-field class="col w-100">
+					<mat-label>Created At</mat-label>
+					<input
+						value="{{ updateLoanForm.value.createdAt }}"
+						matInput
+						disabled
+						[matDatepicker]="createdAt" />
+					<mat-datepicker-toggle
+						matIconSuffix
+						[for]="createdAt"></mat-datepicker-toggle>
+					<mat-datepicker #createdAt></mat-datepicker>
+				</mat-form-field>
+
+				<mat-form-field class="col w-100">
+					<mat-label>Updated At</mat-label>
+					<input
+						value="{{ updateLoanForm.value.updatedAt }}"
+						matInput
+						disabled
+						[matDatepicker]="updatedAt" />
+					<mat-datepicker-toggle
+						matIconSuffix
+						[for]="updatedAt"></mat-datepicker-toggle>
+					<mat-datepicker #updatedAt></mat-datepicker>
+				</mat-form-field>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col">
+							<button
+								mat-flat-button
+								color="primary"
+								class="me-4 w-100"
+								(click)="updateLoan()"
+								[disabled]="!updateLoanForm.valid">
+								Save
+							</button>
+						</div>
+
+						<div class="col">
+							<button mat-flat-button color="warn" class="w-100">Remove</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	}
+</div>
+
+<div class="mt-4">
+	<h1>Payments</h1>
+
+	<table mat-table [dataSource]="paymentsDataSource" matSort>
+		<ng-container matColumnDef="totalFunded">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.value | currency }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="value">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+			<td mat-cell *matCellDef="let element">{{ element.value }}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="paid">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.paid }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="expirationDate">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Expiration Date</th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.expirationDate | date: 'short' }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+			<td mat-cell *matCellDef="let element">
+				<div class="row">
+					<div class="col">
+						<button mat-flat-button color="primary" class="w-100">Edit</button>
+					</div>
+					<div class="col">
+						<button mat-flat-button color="warn" class="w-100">Remove</button>
+					</div>
+				</div>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="paymentsDataSourceColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: paymentsDataSourceColumns"></tr>
+	</table>
+</div>

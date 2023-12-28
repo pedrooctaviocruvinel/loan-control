@@ -9,4 +9,12 @@ public class Loan(string name, decimal totalFunded) : Entity
 
     public void AddPayments(List<Payment> payments) =>
         Payments.AddRange(payments);
+
+    public void Update(string name, decimal totalFunded)
+    {
+        Name = name;
+        TotalFunded = totalFunded;
+
+        Update();
+    }
 }

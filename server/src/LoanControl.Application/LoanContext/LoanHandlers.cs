@@ -11,7 +11,8 @@ namespace LoanControl.Application.LoanContext;
 internal class LoanHandlers(LoanService loanService, IMapper mapper) :
     IRequestHandler<ListLoansQueryRequest, ResultWrapper<IList<ListLoansQueryResult>>>,
     IRequestHandler<GetLoanByIdQueryRequest, ResultWrapper<GetLoanByIdQueryResult>>,
-    IRequestHandler<CreateLoanCommandRequest, ResultWrapper>
+    IRequestHandler<CreateLoanCommandRequest, ResultWrapper>,
+    IRequestHandler<UpdateLoanCommandRequest, ResultWrapper>
 {
     private readonly LoanService _loanService = loanService;
     private readonly IMapper _mapper = mapper;
@@ -48,4 +49,7 @@ internal class LoanHandlers(LoanService loanService, IMapper mapper) :
 
         return createLoanResult;
     }
+
+    public async Task<ResultWrapper> Handle(UpdateLoanCommandRequest commandRequest, CancellationToken cancellationToken) =>
+        await _loanService.Update(commandRequest.Id, commandRequest.Name, commandRequest.TotalFunded);
 }

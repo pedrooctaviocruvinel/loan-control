@@ -2,5 +2,6 @@
 
 public enum EErrorCode
 {
-    NoError = 0
+    NoError = 0,
+    LoanDoesntExists = 1
 }

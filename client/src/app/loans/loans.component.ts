@@ -13,7 +13,7 @@ import { CreateLoanDialogComponent } from './components/create-loan-dialog/creat
 import { ListLoansResult } from './listLoansResult';
 
 @Component({
-	selector: 'app-loan',
+	selector: 'app-loans',
 	standalone: true,
 	imports: [
 		MatButtonModule,

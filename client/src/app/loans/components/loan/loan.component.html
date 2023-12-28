@@ -1,0 +1,88 @@
+@if (loan != null) {
+	<mat-form-field class="w-100">
+		<mat-label>Name</mat-label>
+		<input value="{{ loan.name }}" matInput />
+	</mat-form-field>
+
+	<mat-form-field class="w-100">
+		<mat-label>Total Funded</mat-label>
+		<input
+			value="{{ loan.totalFunded }}"
+			matInput
+			type="number"
+			placeholder="0" />
+	</mat-form-field>
+
+	<mat-form-field class="w-100">
+		<mat-label>Created At</mat-label>
+		<input
+			value="{{ loan.createdAt }}"
+			matInput
+			[matDatepicker]="createdAt"
+			disabled />
+		<mat-datepicker-toggle
+			matIconSuffix
+			[for]="updatedAt"></mat-datepicker-toggle>
+		<mat-datepicker #createdAt></mat-datepicker>
+	</mat-form-field>
+
+	<mat-form-field class="w-100">
+		<mat-label>Updated At</mat-label>
+		<input
+			value="{{ loan.updatedAt }}"
+			matInput
+			[matDatepicker]="updatedAt"
+			disabled />
+		<mat-datepicker-toggle
+			matIconSuffix
+			[for]="updatedAt"></mat-datepicker-toggle>
+		<mat-datepicker #updatedAt></mat-datepicker>
+	</mat-form-field>
+}
+
+<h1>Payments:</h1>
+
+<table mat-table [dataSource]="paymentsDataSource" matSort>
+	<ng-container matColumnDef="totalFunded">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+		<td mat-cell *matCellDef="let element">
+			{{ element.value | currency }}
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="value">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+		<td mat-cell *matCellDef="let element">{{ element.value }}</td>
+	</ng-container>
+
+	<ng-container matColumnDef="paid">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+		<td mat-cell *matCellDef="let element">
+			{{ element.paid }}
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="expirationDate">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Expiration Date</th>
+		<td mat-cell *matCellDef="let element">
+			{{ element.expirationDate | date: 'short' }}
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="actions">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+		<td mat-cell *matCellDef="let element">
+			<div class="row">
+				<div class="col">
+					<button mat-flat-button color="primary" class="w-100">Edit</button>
+				</div>
+				<div class="col">
+					<button mat-flat-button color="warn" class="w-100">Remove</button>
+				</div>
+			</div>
+		</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="paymentsDataSourceColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: paymentsDataSourceColumns"></tr>
+</table>

@@ -23,6 +23,17 @@ public class LoansController(IMediator mediator) : ControllerBase
         return Ok(listLoansResult);
     }
 
+    [HttpGet("{Id}")]
+    public async Task<IActionResult> GetLoanById([FromRoute] GetLoanByIdQueryRequest queryRequest)
+    {
+        var getLoanByIdResult = await _mediator.Send(queryRequest);
+
+        if (!getLoanByIdResult.Success)
+            return BadRequest(getLoanByIdResult);
+
+        return Ok(getLoanByIdResult);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateLoan([FromBody] CreateLoanCommandRequest commandRequest)
     {

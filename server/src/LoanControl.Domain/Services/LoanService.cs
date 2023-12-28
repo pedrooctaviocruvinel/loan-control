@@ -1,4 +1,5 @@
-﻿using LoanControl.CrossCutting.Core.Models;
+﻿using LoanControl.CrossCutting.Core.Enums;
+using LoanControl.CrossCutting.Core.Models;
 using LoanControl.Domain.Entities;
 using LoanControl.Domain.Repositories;
 
@@ -13,6 +14,16 @@ public class LoanService(ILoanRepository loanRepository)
         var loans = await _loanRepository.List();
 
         return new ResultWrapper<IList<Loan>>(loans);
+    }
+
+    public async Task<ResultWrapper<Loan>> GetById(Guid id)
+    {
+        var loan = await _loanRepository.GetById(id);
+
+        if (loan == null)
+            return new ResultWrapper<Loan>(EErrorCode.LoanDoesntExists);
+
+        return new ResultWrapper<Loan>(loan);
     }
 
     public async Task<ResultWrapper> CreateLoan(Loan loan)

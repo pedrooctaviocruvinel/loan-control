@@ -103,7 +103,7 @@ export class CreateLoanDialogComponent {
 			payments: payments,
 		};
 
-		const createLoanResponse = await fetch(environment.serverUrl + '/Loans', {
+		const createLoanResponse = await fetch(environment.serverUrl + '/loans', {
 			method: 'POST',
 			headers: headers,
 			body: JSON.stringify(createLoanRequest),

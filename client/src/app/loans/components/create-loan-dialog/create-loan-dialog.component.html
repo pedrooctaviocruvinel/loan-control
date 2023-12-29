@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Create Loan</h1>
+<h1 mat-dialog-title>Create new Loan</h1>
 
 <div mat-dialog-content>
 	<mat-stepper linear #stepper>
@@ -51,8 +51,10 @@
 				</div>
 			</form>
 
-			<div>
-				<button mat-flat-button matStepperNext>Next</button>
+			<div class="mt-4">
+				<button mat-flat-button mat-flat-button matStepperNext>
+					<mat-icon fontIcon="navigate_next"></mat-icon>Next
+				</button>
 			</div>
 		</mat-step>
 
@@ -107,6 +109,7 @@
 										color="warn"
 										class="w-100"
 										(click)="removePayment(index)">
+										<mat-icon fontIcon="remove"></mat-icon>
 										Remove
 									</button>
 								</div>
@@ -115,36 +118,43 @@
 					}
 
 					<button mat-flat-button color="primary" (click)="addPayment()">
-						Add
+						<mat-icon fontIcon="add"></mat-icon>Add
 					</button>
 				</ng-container>
 			</form>
 
 			<div class="mt-4">
-				<button class="me-4" mat-flat-button matStepperPrevious>Back</button>
-				<button mat-flat-button matStepperNext>Next</button>
+				<button mat-flat-button mat-flat-button matStepperPrevious>
+					<mat-icon fontIcon="navigate_before"></mat-icon>Previous
+				</button>
+
+				<button mat-flat-button mat-flat-button matStepperNext>
+					<mat-icon fontIcon="navigate_next"></mat-icon>Next
+				</button>
 			</div>
 		</mat-step>
 
 		<mat-step>
 			<ng-template matStepLabel>Confirmation</ng-template>
 
-			<h1>Loan Configured</h1>
-
 			<div class="text-center">
 				<img
-					src="assets/images/E-Wallet-pana.png"
+					src="assets/images/loan-configured.png"
 					alt="loan configured"
 					title="loan configured" />
 			</div>
 
 			<div class="mt-4">
-				<button class="me-4" mat-flat-button matStepperPrevious>Back</button>
-				<button class="me-4" mat-flat-button (click)="stepper.reset()">
-					Reset
+				<button class="me-4" mat-flat-button matStepperPrevious>
+					<mat-icon fontIcon="navigate_before"></mat-icon>Previous
 				</button>
+
+				<button class="me-4" mat-flat-button (click)="stepper.reset()">
+					<mat-icon fontIcon="restart_alt"></mat-icon>Reset
+				</button>
+
 				<button mat-flat-button color="primary" (click)="createLoan()">
-					create
+					<mat-icon fontIcon="add"></mat-icon>Create
 				</button>
 			</div>
 		</mat-step>
@@ -152,5 +162,7 @@
 </div>
 
 <div mat-dialog-actions align="end">
-	<button mat-button mat-dialog-close>Cancel</button>
+	<button mat-flat-button mat-dialog-close>
+		<mat-icon fontIcon="cancel"></mat-icon>Cancel
+	</button>
 </div>

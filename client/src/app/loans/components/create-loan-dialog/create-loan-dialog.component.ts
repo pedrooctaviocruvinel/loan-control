@@ -9,15 +9,8 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-	MatDialogActions,
-	MatDialogClose,
-	MatDialogContent,
-	MatDialogModule,
-	MatDialogRef,
-	MatDialogTitle,
-} from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -36,16 +29,12 @@ import { CreateLoanRequest } from '../../types/createLoanRequest';
 	imports: [
 		MatInputModule,
 		MatButtonModule,
-		MatDialogTitle,
-		MatDialogContent,
-		MatDialogActions,
-		MatDialogClose,
 		ReactiveFormsModule,
 		MatStepperModule,
 		MatSlideToggleModule,
 		MatDatepickerModule,
 		MatDialogModule,
-		MatDividerModule,
+		MatIconModule,
 	],
 	providers: [
 		{

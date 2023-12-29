@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -18,6 +19,7 @@ import { environment } from '@/environments/environment';
 import { headers } from '@/shared/headers';
 import { ResultWrapper } from '@/shared/types/resultWrapper';
 
+import { AddPaymentDialogComponent } from '../add-payment-dialog/add-payment-dialog.component';
 import { GetLoanByIdResult } from './types/getLoanByIdResult';
 import { GetLoanByIdResultPaymentDTO } from './types/getLoanByIdResultPaymentDTO';
 import { UpdateLoanRequest } from './types/updateLoanRequest';
@@ -26,21 +28,23 @@ import { UpdateLoanRequest } from './types/updateLoanRequest';
 	selector: 'app-loan',
 	standalone: true,
 	imports: [
-		MatFormFieldModule,
-		MatInputModule,
-		MatDatepickerModule,
+		MatButtonModule,
 		MatTableModule,
 		CommonModule,
 		MatSortModule,
-		MatButtonModule,
+		MatDialogModule,
 		ReactiveFormsModule,
+		MatDatepickerModule,
+		MatInputModule,
+		MatFormFieldModule,
 	],
 	templateUrl: './loan.component.html',
 })
 export class LoanComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
-		formBuilder: FormBuilder
+		formBuilder: FormBuilder,
+		private dialog: MatDialog
 	) {
 		this.updateLoanForm = formBuilder.group({
 			name: ['', [Validators.required, Validators.maxLength(25)]],
@@ -132,6 +136,18 @@ export class LoanComponent implements OnInit {
 			await deletePaymentResponse.json();
 
 		console.log(deletePaymentResult);
+	}
+
+	openAddPaymentDialog(): void {
+		const dialogRef = this.dialog.open(AddPaymentDialogComponent, {
+			data: this.id,
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log('result', result);
+
+			this.getLoan(this.id);
+		});
 	}
 
 	get loan() {

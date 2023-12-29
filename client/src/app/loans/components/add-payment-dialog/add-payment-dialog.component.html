@@ -61,9 +61,14 @@
 	<button
 		mat-flat-button
 		color="primary"
-		(click)="addPaymentToLoan()"
+		(click)="addPayment()"
 		[disabled]="!addPaymentForm.valid">
-		Add
+		<mat-icon fontIcon="add"></mat-icon>
+		Add new Payment
 	</button>
-	<button mat-button mat-dialog-close>Cancel</button>
+
+	<button mat-flat-button mat-dialog-close>
+		<mat-icon fontIcon="cancel"></mat-icon>
+		Cancel
+	</button>
 </div>

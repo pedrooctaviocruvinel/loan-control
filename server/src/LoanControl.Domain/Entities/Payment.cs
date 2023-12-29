@@ -22,4 +22,13 @@ public class Payment : Entity
     public DateTime ExpirationDate { get; private set; }
 
     public Loan Loan { get; private set; }
+
+    public void Update(decimal value, bool paid, DateTime expirationDate)
+    {
+        Value = value;
+        Paid = paid;
+        ExpirationDate = expirationDate;
+
+        Update();
+    }
 }

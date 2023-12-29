@@ -25,6 +25,21 @@ public class PaymentService(IPaymentRepository paymentRepository, ILoanRepositor
         return new ResultWrapper();
     }
 
+    public async Task<ResultWrapper> Update(Guid id, decimal value, bool paid, DateTime expirationDate)
+    {
+        var payment = await _paymentRepository.GetById(id);
+
+        if (payment == null)
+            return new ResultWrapper(EErrorCode.DoesntExists);
+
+        payment.Update(value, paid, expirationDate);
+
+        _paymentRepository.Update(payment);
+        await _paymentRepository.SaveChanges();
+
+        return new ResultWrapper();
+    }
+
     public async Task<ResultWrapper> Remove(Guid id)
     {
         var payment = await _paymentRepository.GetById(id);

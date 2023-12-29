@@ -23,6 +23,19 @@ public class PaymentsController(IMediator mediator) : ControllerBase
         return Ok(addPaymentResult);
     }
 
+    [HttpPut("loans/payments/{id}")]
+    public async Task<IActionResult> UpdatePayment([FromRoute] Guid id, [FromBody] UpdatePaymentCommandRequest commandRequest)
+    {
+        commandRequest.SetId(id);
+
+        var updatePaymentResult = await _mediator.Send(commandRequest);
+
+        if (!updatePaymentResult.Success)
+            return BadRequest(updatePaymentResult);
+
+        return Ok(updatePaymentResult);
+    }
+
     [HttpDelete("loans/payments/{Id}")]
     public async Task<IActionResult> RemovePayment([FromRoute] RemovePaymentCommandRequest commandRequest)
     {

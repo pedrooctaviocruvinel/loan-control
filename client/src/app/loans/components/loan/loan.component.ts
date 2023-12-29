@@ -20,6 +20,7 @@ import { headers } from '@/shared/headers';
 import { ResultWrapper } from '@/shared/types/resultWrapper';
 
 import { AddPaymentDialogComponent } from '../add-payment-dialog/add-payment-dialog.component';
+import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-payment-dialog.component';
 import { GetLoanByIdResult } from './types/getLoanByIdResult';
 import { GetLoanByIdResultPaymentDTO } from './types/getLoanByIdResultPaymentDTO';
 import { UpdateLoanRequest } from './types/updateLoanRequest';
@@ -141,6 +142,28 @@ export class LoanComponent implements OnInit {
 	openAddPaymentDialog(): void {
 		const dialogRef = this.dialog.open(AddPaymentDialogComponent, {
 			data: this.id,
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log('result', result);
+
+			this.getLoan(this.id);
+		});
+	}
+
+	openUpdatePaymentDialog(
+		id: string,
+		value: number,
+		paid: boolean,
+		expirationDate: Date
+	): void {
+		const dialogRef = this.dialog.open(UpdatePaymentDialogComponent, {
+			data: {
+				id: id,
+				value: value,
+				paid: paid,
+				expirationDate: expirationDate,
+			},
 		});
 
 		dialogRef.afterClosed().subscribe(result => {

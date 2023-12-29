@@ -10,17 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
 	MAT_DIALOG_DATA,
-	MatDialogActions,
-	MatDialogClose,
-	MatDialogContent,
 	MatDialogModule,
 	MatDialogRef,
-	MatDialogTitle,
 } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatStepperModule } from '@angular/material/stepper';
 
 import { environment } from '@/environments/environment';
 import { headers } from '@/shared/headers';
@@ -30,21 +25,16 @@ import { ResultWrapper } from '@/shared/types/resultWrapper';
 import { UpdatePaymentRequest } from './types/updatePaymentRequest';
 
 @Component({
-	selector: 'app-create-loan-dialog',
+	selector: 'app-update-payment-dialog',
 	standalone: true,
 	imports: [
 		MatInputModule,
 		MatButtonModule,
-		MatDialogTitle,
-		MatDialogContent,
-		MatDialogActions,
-		MatDialogClose,
 		ReactiveFormsModule,
-		MatStepperModule,
 		MatSlideToggleModule,
 		MatDatepickerModule,
 		MatDialogModule,
-		MatDividerModule,
+		MatIconModule,
 	],
 	providers: [
 		{

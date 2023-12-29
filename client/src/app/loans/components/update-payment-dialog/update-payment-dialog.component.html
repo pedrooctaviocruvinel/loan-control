@@ -63,7 +63,11 @@
 		color="primary"
 		(click)="updatePayment()"
 		[disabled]="!updatePaymentForm.valid">
+		<mat-icon fontIcon="save"></mat-icon>
 		Save
 	</button>
-	<button mat-button mat-dialog-close>Cancel</button>
+
+	<button mat-button mat-dialog-close>
+		<mat-icon fontIcon="cancel"></mat-icon>Cancel
+	</button>
 </div>

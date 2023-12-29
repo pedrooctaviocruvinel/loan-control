@@ -7,9 +7,11 @@ import {
 	Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -38,29 +40,29 @@ import { UpdateLoanRequest } from './types/updateLoanRequest';
 		MatDatepickerModule,
 		MatInputModule,
 		MatFormFieldModule,
+		MatCardModule,
+		MatIconModule,
 	],
 	templateUrl: './loan.component.html',
 })
 export class LoanComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
-		formBuilder: FormBuilder,
+		private formBuilder: FormBuilder,
 		private dialog: MatDialog
-	) {
-		this.updateLoanForm = formBuilder.group({
-			name: ['', [Validators.required, Validators.maxLength(25)]],
-			totalFunded: ['', [Validators.required, Validators.min(1)]],
-			createdAt: [''],
-			updatedAt: [''],
-		});
-	}
+	) {}
 
 	id: string;
 
 	paymentsDataSource = new MatTableDataSource<GetLoanByIdResultPaymentDTO>();
 	paymentsDataSourceColumns = ['value', 'paid', 'expirationDate', 'actions'];
 
-	updateLoanForm: FormGroup;
+	updateLoanForm: FormGroup = this.formBuilder.group({
+		name: ['', [Validators.required, Validators.maxLength(25)]],
+		totalFunded: ['', [Validators.required, Validators.min(1)]],
+		createdAt: [''],
+		updatedAt: [''],
+	});
 
 	@ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -125,18 +127,18 @@ export class LoanComponent implements OnInit {
 		console.log(deleteLoanResult);
 	}
 
-	async deletePayment(id: string): Promise<void> {
-		const deletePaymentResponse = await fetch(
+	async removePayment(id: string): Promise<void> {
+		const removePaymentResponse = await fetch(
 			`${environment.serverUrl}/loans/payments/${id}`,
 			{
 				method: 'DELETE',
 			}
 		);
 
-		const deletePaymentResult: ResultWrapper<void> =
-			await deletePaymentResponse.json();
+		const removePaymentResult: ResultWrapper<void> =
+			await removePaymentResponse.json();
 
-		console.log(deletePaymentResult);
+		console.log(removePaymentResult);
 	}
 
 	openAddPaymentDialog(): void {

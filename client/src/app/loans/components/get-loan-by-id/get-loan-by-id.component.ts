@@ -16,7 +16,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import {
+	ActivatedRoute,
+	Router,
+	RouterLink,
+	RouterLinkActive,
+	RouterModule,
+} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
@@ -48,6 +54,9 @@ import { UpdatePaymentDialogComponent } from '../dialogs/update-payment-dialog/u
 		MatIconModule,
 		MatProgressSpinnerModule,
 		ErrorComponent,
+		RouterModule,
+		RouterLink,
+		RouterLinkActive,
 	],
 	templateUrl: './get-loan-by-id.component.html',
 })
@@ -57,7 +66,8 @@ export class GetLoanByIdComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private dialog: MatDialog,
 		private loanService: LoanService,
-		private toastrService: ToastrService
+		private toastrService: ToastrService,
+		private router: Router
 	) {}
 
 	id: string;
@@ -72,6 +82,7 @@ export class GetLoanByIdComponent implements OnInit {
 	];
 	getLoanByIdResult: ResultWrapperModel<GetLoanByIdResultDTO>;
 	updateLoanResult: ResultWrapperModel<void>;
+	deleteLoanResult: ResultWrapperModel<void>;
 	sort: MatSort;
 	updateLoanForm: FormGroup = this.formBuilder.group({
 		name: ['', [Validators.required, Validators.maxLength(25)]],
@@ -135,15 +146,27 @@ export class GetLoanByIdComponent implements OnInit {
 			this.toastrService.error("loan doesn't updated", 'Update Loan');
 		} else {
 			this.toastrService.success('loan updated successfully', 'Update Loan');
-		}
 
-		this.loadingGetLoanById = false;
+			this.loadingGetLoanById = false;
+		}
 	}
 
 	async deleteLoan(): Promise<void> {
-		const deleteLoanResult = await this.loanService.delete(this.id);
+		this.loadingGetLoanById = true;
 
-		console.log(deleteLoanResult);
+		this.deleteLoanResult = await this.loanService.delete(this.id);
+
+		if (!this.deleteLoanResult.success) {
+			this.toastrService.error("loan doesn't deleted", 'Delete Loan');
+
+			this.loadingGetLoanById = false;
+		} else {
+			this.toastrService.success('loan deleted successfully', 'Delete Loan');
+
+			this.loadingGetLoanById = false;
+
+			this.router.navigate(['/loans']);
+		}
 	}
 
 	async removePayment(id: string): Promise<void> {

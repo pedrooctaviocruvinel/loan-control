@@ -96,6 +96,18 @@
 						}
 					</div>
 				}
+
+				@if (deleteLoanResult?.success == false) {
+					<div>
+						@if (deleteLoanResult.errorCode == 1) {
+							<p class="d-block invalid-feedback">* Loan doesn't exists</p>
+						}
+
+						@for (error of deleteLoanResult.errors; track error) {
+							<p class="d-block invalid-feedback">* {{ error }}</p>
+						}
+					</div>
+				}
 			}
 		}
 	</mat-card-content>
@@ -116,7 +128,7 @@
 			color="warn"
 			(click)="deleteLoan()"
 			[disabled]="loadingGetLoanById || !getLoanByIdResult.success">
-			<mat-icon fontIcon="delete"></mat-icon>Remove
+			<mat-icon fontIcon="delete"></mat-icon>Delete
 		</button>
 	</mat-card-actions>
 </mat-card>

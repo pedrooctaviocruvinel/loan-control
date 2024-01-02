@@ -88,6 +88,14 @@
 						</mat-form-field>
 					</div>
 				</form>
+
+				@if (updateLoanResult?.success == false) {
+					<div>
+						@for (error of updateLoanResult.errors; track error) {
+							<p class="d-block invalid-feedback">* {{ error }}</p>
+						}
+					</div>
+				}
 			}
 		}
 	</mat-card-content>

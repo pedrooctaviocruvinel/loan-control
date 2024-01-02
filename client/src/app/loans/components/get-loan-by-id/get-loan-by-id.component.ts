@@ -17,6 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
@@ -55,7 +56,8 @@ export class GetLoanByIdComponent implements OnInit {
 		private route: ActivatedRoute,
 		private formBuilder: FormBuilder,
 		private dialog: MatDialog,
-		private loanService: LoanService
+		private loanService: LoanService,
+		private toastrService: ToastrService
 	) {}
 
 	id: string;
@@ -69,13 +71,23 @@ export class GetLoanByIdComponent implements OnInit {
 		'actions',
 	];
 	getLoanByIdResult: ResultWrapperModel<GetLoanByIdResultDTO>;
-	@ViewChild(MatSort, { static: true }) sort: MatSort;
+	updateLoanResult: ResultWrapperModel<void>;
+	sort: MatSort;
 	updateLoanForm: FormGroup = this.formBuilder.group({
 		name: ['', [Validators.required, Validators.maxLength(25)]],
 		totalFunded: ['', [Validators.required, Validators.min(1)]],
 		createdAt: [''],
 		updatedAt: [''],
 	});
+
+	@ViewChild(MatSort) set matSort(ms: MatSort) {
+		this.sort = ms;
+		this.setDataSourceAttributes();
+	}
+
+	setDataSourceAttributes(): void {
+		this.getLoanByIdPaymentsDataSource.sort = this.sort;
+	}
 
 	async ngOnInit(): Promise<void> {
 		this.id = this.route.snapshot.paramMap.get('id')!;
@@ -107,17 +119,25 @@ export class GetLoanByIdComponent implements OnInit {
 	}
 
 	async updateLoan(): Promise<void> {
+		this.loadingGetLoanById = true;
+
 		const updateLoanRequest: UpdateLoanRequestDTO = {
 			name: this.updateLoanForm.value.name,
 			totalFunded: this.updateLoanForm.value.totalFunded,
 		};
 
-		const updateLoanResult = await this.loanService.update(
+		this.updateLoanResult = await this.loanService.update(
 			this.id,
 			updateLoanRequest
 		);
 
-		console.log(updateLoanResult);
+		if (!this.updateLoanResult.success) {
+			this.toastrService.error("loan doesn't updated", 'Update Loan');
+		} else {
+			this.toastrService.success('loan updated successfully', 'Update Loan');
+		}
+
+		this.loadingGetLoanById = false;
 	}
 
 	async deleteLoan(): Promise<void> {

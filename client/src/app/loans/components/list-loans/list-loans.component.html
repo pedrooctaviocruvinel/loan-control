@@ -1,0 +1,76 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Loans</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-actions>
+		<button
+			mat-flat-button
+			color="primary"
+			(click)="openCreateLoanDialog()"
+			[disabled]="loadingListLoans">
+			<mat-icon fontIcon="add"></mat-icon>
+			Create new Loan
+		</button>
+	</mat-card-actions>
+
+	<mat-card-content class="mt-4">
+		@if (loadingListLoans) {
+			<div class="d-flex align-items-center justify-content-center">
+				<mat-spinner></mat-spinner>
+			</div>
+		} @else {
+			@if (!listLoansResult.success) {
+				<app-error
+					[errors]="listLoansResult.errors"
+					[errorImageCode]="0"
+					title="Error on list Loans" />
+			} @else {
+				@if (listLoansResult.data.length == 0) {
+					<h1>None Loans created yet</h1>
+				} @else {
+					<table mat-table [dataSource]="listLoansResultDataSource" matSort>
+						<ng-container matColumnDef="name">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+							<td mat-cell *matCellDef="let loan">
+								<a
+									class="text-decoration-underline link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+									href="{{ '/loans/' + loan.id }}"
+									>{{ loan.name }}</a
+								>
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="totalFunded">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header>
+								Total Funded
+							</th>
+							<td mat-cell *matCellDef="let loan">
+								{{ loan.totalFunded | currency }}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="createdAt">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header>
+								Created At
+							</th>
+							<td mat-cell *matCellDef="let loan">
+								{{ loan.createdAt | date: 'MM/dd/yyyy' }}
+							</td>
+						</ng-container>
+
+						<tr
+							mat-header-row
+							*matHeaderRowDef="listLoansResultDataSourceColumns"></tr>
+						<tr
+							mat-row
+							*matRowDef="
+								let row;
+								columns: listLoansResultDataSourceColumns
+							"></tr>
+					</table>
+				}
+			}
+		}
+	</mat-card-content>
+</mat-card>

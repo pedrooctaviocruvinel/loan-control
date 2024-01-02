@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>Add Payment</h1>
+
+<div mat-dialog-content>
+	<form [formGroup]="addPaymentForm">
+		<div class="row">
+			<div class="form-group col">
+				<mat-form-field class="w-100">
+					<mat-label>Value</mat-label>
+					<input
+						formControlName="value"
+						matInput
+						type="number"
+						placeholder="0" />
+				</mat-form-field>
+
+				@if (payment.value.touched) {
+					<div>
+						@if (payment.value.errors?.required) {
+							<p class="d-block invalid-feedback">* required</p>
+						}
+
+						@if (payment.value.errors?.min) {
+							<p class="d-block invalid-feedback">* at least R$ 1</p>
+						}
+					</div>
+				}
+			</div>
+
+			<div class="form-group col">
+				<mat-form-field class="w-100">
+					<mat-label>Expiration Date</mat-label>
+					<input
+						formControlName="expirationDate"
+						matInput
+						[matDatepicker]="picker" />
+					<mat-datepicker-toggle
+						matIconSuffix
+						[for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+
+				@if (payment.expirationDate.touched) {
+					<div>
+						@if (payment.expirationDate.errors?.required) {
+							<p class="d-block invalid-feedback">* required</p>
+						}
+					</div>
+				}
+			</div>
+
+			<div class="col">
+				<div class="d-flex align-items-center justify-content-center">
+					<mat-slide-toggle formControlName="paid">Paid</mat-slide-toggle>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div mat-dialog-actions align="end">
+	<button
+		mat-flat-button
+		color="primary"
+		(click)="addPayment()"
+		[disabled]="!addPaymentForm.valid">
+		<mat-icon fontIcon="add"></mat-icon>
+		Add new Payment
+	</button>
+
+	<button mat-flat-button mat-dialog-close>
+		<mat-icon fontIcon="cancel"></mat-icon>
+		Cancel
+	</button>
+</div>

@@ -7,6 +7,7 @@
 		<button
 			mat-flat-button
 			color="primary"
+			(click)="openCreateLoanDialog()"
 			[disabled]="loadingListLoans"
 			[disabled]="listLoansErrors.length !== 0">
 			<mat-icon fontIcon="add"></mat-icon>

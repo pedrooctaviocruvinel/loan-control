@@ -2,6 +2,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { Component, DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -10,7 +11,7 @@ registerLocaleData(ptBr);
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [CommonModule, RouterOutlet, MatButtonModule],
+	imports: [CommonModule, RouterOutlet, MatButtonModule, MatNativeDateModule],
 	providers: [
 		{ provide: LOCALE_ID, useValue: 'pt' },
 		{ provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },

@@ -1,1 +1,63 @@
-<p>list-loans works!</p>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Loans</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-actions>
+		<button
+			mat-flat-button
+			color="primary"
+			[disabled]="loadingListLoans"
+			[disabled]="listLoansErrors.length !== 0">
+			<mat-icon fontIcon="add"></mat-icon>
+			Create new Loan
+		</button>
+	</mat-card-actions>
+
+	<mat-card-content class="mt-4">
+		@if (loadingListLoans) {
+			<app-loading></app-loading>
+		} @else {
+			@if (listLoansErrors.length != 0) {
+				<app-error
+					title="Error on list Loans"
+					[errors]="listLoansErrors"></app-error>
+			} @else {
+				<table mat-table [dataSource]="loansDataSource" matSort>
+					<ng-container matColumnDef="name">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+						<td mat-cell *matCellDef="let loan">
+							<a
+								class="text-decoration-underline link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+								>{{ loan.name }}</a
+							>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="totalFunded">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							Total Funded
+						</th>
+						<td mat-cell *matCellDef="let loan">
+							{{ loan.totalFunded | currency }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="createdAt">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							Created At
+						</th>
+						<td mat-cell *matCellDef="let loan">
+							{{ loan.createdAt | date: 'MM/dd/yyyy' }}
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="loansDataSourceColumns"></tr>
+					<tr
+						mat-row
+						*matRowDef="let row; columns: loansDataSourceColumns"></tr>
+				</table>
+			}
+		}
+	</mat-card-content>
+</mat-card>

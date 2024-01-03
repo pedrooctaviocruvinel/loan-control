@@ -1,0 +1,5 @@
+<h1>{{ title }}</h1>
+
+@for (error of errors; track error) {
+	<p class="d-block invalid-feedback">* {{ error }}</p>
+}

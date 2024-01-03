@@ -12,6 +12,7 @@
 				"plugin:prettier/recommended"
 			],
 			"rules": {
+				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/no-use-before-define": "error",
 				"@typescript-eslint/explicit-function-return-type": "error",
 				"simple-import-sort/imports": "error",

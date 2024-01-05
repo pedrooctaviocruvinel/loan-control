@@ -14,12 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
 
 import { GetLoanByIdResultPaymentDTO } from '../../dtos/get-loan-by-id-result.dto';
 import { LoanService } from '../../services/loan.service';
+import { PaymentService } from '../../services/payment.service';
 
 @Component({
 	selector: 'app-get-loan-by-id',
@@ -43,7 +45,9 @@ export class GetLoanByIdComponent implements OnInit {
 	constructor(
 		private readonly activatedRoute: ActivatedRoute,
 		private readonly formBuilder: FormBuilder,
-		private readonly loanService: LoanService
+		private readonly loanService: LoanService,
+		private readonly paymentService: PaymentService,
+		private readonly toastrService: ToastrService
 	) {}
 
 	id: string;
@@ -69,6 +73,7 @@ export class GetLoanByIdComponent implements OnInit {
 	getLoanByIdErrors: string[] = [];
 
 	loadingGetLoanById: boolean = false;
+	loadingRemovePayment: boolean = false;
 
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -99,6 +104,28 @@ export class GetLoanByIdComponent implements OnInit {
 		}
 
 		this.loadingGetLoanById = false;
+	}
+
+	async removePayment(id: string): Promise<void> {
+		this.loadingRemovePayment = true;
+
+		const removePaymentResult = await this.paymentService.remove(id);
+
+		if (!removePaymentResult.success) {
+			let message = 'Unexpected error';
+
+			if (removePaymentResult.errorCode == 2) {
+				message = "Payment doesn't exists";
+			}
+
+			this.toastrService.error(message, 'Remove Payment');
+		} else {
+			this.toastrService.success('Payment removed', 'Remove Payment');
+
+			this.getLoanById(this.id);
+		}
+
+		this.loadingRemovePayment = false;
 	}
 
 	get loan() {

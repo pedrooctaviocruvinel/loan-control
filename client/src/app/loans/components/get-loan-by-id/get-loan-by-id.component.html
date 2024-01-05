@@ -94,14 +94,18 @@
 			mat-flat-button
 			color="primary"
 			class="me-1"
-			[disabled]="!updateLoanForm.valid">
+			[disabled]="!updateLoanForm.valid || loadingRemovePayment === true">
 			<mat-icon fontIcon="save"></mat-icon>
 			Save
 		</button>
 		<button
 			mat-flat-button
 			color="warn"
-			[disabled]="loadingGetLoanById === true || getLoanByIdErrorCode !== 0">
+			[disabled]="
+				loadingGetLoanById === true ||
+				loadingRemovePayment === true ||
+				getLoanByIdErrorCode !== 0
+			">
 			<mat-icon fontIcon="delete"></mat-icon>Delete
 		</button>
 	</mat-card-actions>
@@ -116,7 +120,11 @@
 		<button
 			mat-flat-button
 			color="primary"
-			[disabled]="loadingGetLoanById === true || getLoanByIdErrorCode !== 0">
+			[disabled]="
+				loadingGetLoanById === true ||
+				loadingRemovePayment === true ||
+				getLoanByIdErrorCode !== 0
+			">
 			<mat-icon fontIcon="add"></mat-icon>
 			Add new Payment
 		</button>
@@ -124,6 +132,8 @@
 
 	<mat-card-content>
 		@if (loadingGetLoanById) {
+			<app-loading></app-loading>
+		} @else if (loadingRemovePayment) {
 			<app-loading></app-loading>
 		} @else {
 			@if (getLoanByIdErrorCode == 0) {
@@ -163,7 +173,11 @@
 								</div>
 
 								<div class="col">
-									<button mat-flat-button color="warn" class="w-100">
+									<button
+										mat-flat-button
+										color="warn"
+										class="w-100"
+										(click)="removePayment(payment.id)">
 										<mat-icon fontIcon="delete"></mat-icon>
 										Remove
 									</button>

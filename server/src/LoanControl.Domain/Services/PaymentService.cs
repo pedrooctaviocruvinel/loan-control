@@ -30,7 +30,7 @@ public class PaymentService(IPaymentRepository paymentRepository, ILoanRepositor
         var payment = await _paymentRepository.GetById(id);
 
         if (payment == null)
-            return new ResultWrapper(EErrorCode.DoesntExists);
+            return new ResultWrapper(EErrorCode.PaymentDoesntExists);
 
         payment.Update(value, paid, expirationDate);
 
@@ -45,7 +45,7 @@ public class PaymentService(IPaymentRepository paymentRepository, ILoanRepositor
         var payment = await _paymentRepository.GetById(id);
 
         if (payment == null)
-            return new ResultWrapper(EErrorCode.DoesntExists);
+            return new ResultWrapper(EErrorCode.PaymentDoesntExists);
 
         _paymentRepository.Delete(payment);
         await _paymentRepository.SaveChanges();

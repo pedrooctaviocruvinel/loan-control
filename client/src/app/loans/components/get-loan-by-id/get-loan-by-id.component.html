@@ -1,0 +1,188 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Loan</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content class="mt-4">
+		@if (loadingGetLoanById == true) {
+			<app-loading></app-loading>
+		} @else {
+			@if (getLoanByIdErrorCode != 0) {
+				@if (getLoanByIdErrorCode == 1) {
+					<app-error
+						[errors]="['Loan doesn\'t exists']"
+						title="Error on get Loan" />
+				} @else {
+					<app-error [errors]="getLoanByIdErrors" title="Unexpected Error" />
+				}
+			} @else {
+				<form [formGroup]="updateLoanForm">
+					<div class="row">
+						<div class="col">
+							<mat-form-field class="w-100" appearance="outline">
+								<mat-label>Name</mat-label>
+								<input formControlName="name" matInput />
+							</mat-form-field>
+
+							@if (loan.name.touched) {
+								<div>
+									@if (loan.name.errors?.required) {
+										<p class="d-block invalid-feedback">* required</p>
+									}
+
+									@if (loan.name.errors?.maxlength) {
+										<p class="d-block invalid-feedback">
+											* maximum length of 25 characters
+										</p>
+									}
+								</div>
+							}
+						</div>
+
+						<div class="col">
+							<mat-form-field class="w-100" appearance="outline">
+								<mat-label>Total Funded</mat-label>
+								<input formControlName="totalFunded" matInput type="number" />
+							</mat-form-field>
+
+							@if (loan.totalFunded.touched) {
+								@if (loan.totalFunded.errors?.required) {
+									<p class="d-block invalid-feedback">* required</p>
+								}
+
+								@if (loan.totalFunded.errors?.min) {
+									<p class="d-block invalid-feedback">* minimum R$ 1</p>
+								}
+							}
+						</div>
+					</div>
+
+					<div class="row">
+						<mat-form-field class="col w-100" appearance="outline">
+							<mat-label>Created At</mat-label>
+							<input
+								value="{{ updateLoanForm.value.createdAt }}"
+								matInput
+								disabled
+								[matDatepicker]="createdAt" />
+							<mat-datepicker-toggle
+								matIconSuffix
+								[for]="createdAt"></mat-datepicker-toggle>
+							<mat-datepicker #createdAt></mat-datepicker>
+						</mat-form-field>
+
+						<mat-form-field class="col w-100" appearance="outline">
+							<mat-label>Updated At</mat-label>
+							<input
+								value="{{ updateLoanForm.value.updatedAt }}"
+								matInput
+								disabled
+								[matDatepicker]="updatedAt" />
+							<mat-datepicker-toggle
+								matIconSuffix
+								[for]="updatedAt"></mat-datepicker-toggle>
+							<mat-datepicker #updatedAt></mat-datepicker>
+						</mat-form-field>
+					</div>
+				</form>
+			}
+		}
+	</mat-card-content>
+
+	<mat-card-actions>
+		<button
+			mat-flat-button
+			color="primary"
+			class="me-1"
+			[disabled]="!updateLoanForm.valid">
+			<mat-icon fontIcon="save"></mat-icon>
+			Save
+		</button>
+		<button
+			mat-flat-button
+			color="warn"
+			[disabled]="loadingGetLoanById === true || getLoanByIdErrorCode !== 0">
+			<mat-icon fontIcon="delete"></mat-icon>Delete
+		</button>
+	</mat-card-actions>
+</mat-card>
+
+<mat-card class="mt-4">
+	<mat-card-header>
+		<mat-card-title>Payments</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-actions>
+		<button
+			mat-flat-button
+			color="primary"
+			[disabled]="loadingGetLoanById === true || getLoanByIdErrorCode !== 0">
+			<mat-icon fontIcon="add"></mat-icon>
+			Add new Payment
+		</button>
+	</mat-card-actions>
+
+	<mat-card-content>
+		@if (loadingGetLoanById) {
+			<app-loading></app-loading>
+		} @else {
+			@if (getLoanByIdErrorCode == 0) {
+				<table mat-table [dataSource]="paymentsaymentsDataSource" matSort>
+					<ng-container matColumnDef="value">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+						<td mat-cell *matCellDef="let payment">
+							{{ payment.value | currency }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="paid">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+						<td mat-cell *matCellDef="let payment">
+							{{ payment.paid }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="expirationDate">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							Expiration Date
+						</th>
+						<td mat-cell *matCellDef="let payment">
+							{{ payment.expirationDate | date: 'MM/dd/yyyy' }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="actions">
+						<th mat-header-cell *matHeaderCellDef>Actions</th>
+						<td mat-cell *matCellDef="let payment">
+							<div class="row">
+								<div class="col">
+									<button mat-flat-button color="primary" class="w-100">
+										<mat-icon fontIcon="edit"></mat-icon>
+										Update
+									</button>
+								</div>
+
+								<div class="col">
+									<button mat-flat-button color="warn" class="w-100">
+										<mat-icon fontIcon="delete"></mat-icon>
+										Remove
+									</button>
+								</div>
+							</div>
+						</td>
+					</ng-container>
+
+					<tr
+						mat-header-row
+						*matHeaderRowDef="paymentsaymentsDataSourceColumns"></tr>
+					<tr
+						mat-row
+						*matRowDef="
+							let row;
+							columns: paymentsaymentsDataSourceColumns
+						"></tr>
+				</table>
+			}
+		}
+	</mat-card-content>
+</mat-card>

@@ -6,6 +6,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
@@ -28,6 +29,7 @@ import { CreateLoanDialogComponent } from '../create-loan-dialog/create-loan-dia
 		CommonModule,
 		ErrorComponent,
 		LoadingComponent,
+		RouterModule,
 	],
 	templateUrl: './list-loans.component.html',
 })

@@ -5,6 +5,7 @@ import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 import { environment } from '@/environments/environment';
 
 import { CreateLoanRequestDTO } from '../dtos/create-loan-request.dto';
+import { GetLoanByIdResultDTO } from '../dtos/get-loan-by-id-result.dto';
 import { ListLoansResultDTO } from '../dtos/list-loans-result.dto';
 
 @Injectable({
@@ -15,6 +16,14 @@ export class LoanService {
 		const listLoansResponse = await fetch(environment.serverUrl + '/loans');
 
 		return await listLoansResponse.json();
+	}
+
+	async getById(id: string): Promise<ResultWrapperModel<GetLoanByIdResultDTO>> {
+		const getLoanByIdResponse = await fetch(
+			`${environment.serverUrl}/loans/${id}`
+		);
+
+		return await getLoanByIdResponse.json();
 	}
 
 	async create(

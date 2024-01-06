@@ -10,14 +10,14 @@ public class PaymentService(IPaymentRepository paymentRepository, ILoanRepositor
     private readonly IPaymentRepository _paymentRepository = paymentRepository;
     private readonly ILoanRepository _loanRepository = loanRepository;
 
-    public async Task<ResultWrapper> Add(Guid loanId, decimal value, bool paid, DateTime expirationDate)
+    public async Task<ResultWrapper> Add(Guid loanId, decimal value, DateTime expirationDate, DateTime? paidDate)
     {
         var loan = await _loanRepository.GetById(loanId);
 
         if (loan == null)
             return new ResultWrapper(EErrorCode.LoanDoesntExists);
 
-        var payment = new Payment(value, paid, expirationDate, loan);
+        var payment = new Payment(value, expirationDate, paidDate, loan);
 
         await _paymentRepository.Add(payment);
         await _paymentRepository.SaveChanges();
@@ -25,14 +25,14 @@ public class PaymentService(IPaymentRepository paymentRepository, ILoanRepositor
         return new ResultWrapper();
     }
 
-    public async Task<ResultWrapper> Update(Guid id, decimal value, bool paid, DateTime expirationDate)
+    public async Task<ResultWrapper> Update(Guid id, decimal value, DateTime expirationDate, DateTime? paidDate)
     {
         var payment = await _paymentRepository.GetById(id);
 
         if (payment == null)
             return new ResultWrapper(EErrorCode.PaymentDoesntExists);
 
-        payment.Update(value, paid, expirationDate);
+        payment.Update(value, expirationDate, paidDate);
 
         _paymentRepository.Update(payment);
         await _paymentRepository.SaveChanges();

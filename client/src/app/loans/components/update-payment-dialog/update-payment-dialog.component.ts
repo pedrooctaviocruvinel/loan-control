@@ -15,7 +15,6 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
@@ -32,7 +31,6 @@ import { PaymentService } from '../../services/payment.service';
 		MatDatepickerModule,
 		MatIconModule,
 		MatNativeDateModule,
-		MatSlideToggleModule,
 		MatDialogModule,
 		MatButtonModule,
 		LoadingComponent,
@@ -46,8 +44,8 @@ export class UpdatePaymentDialogComponent implements OnInit {
 		private readonly updatePaymentData: {
 			id: string;
 			value: number;
-			paid: boolean;
 			expirationDate: Date;
+			paidDate: Date;
 		},
 		private readonly dialogRef: MatDialogRef<UpdatePaymentDialogComponent>,
 		private readonly formBuilder: FormBuilder,
@@ -56,8 +54,8 @@ export class UpdatePaymentDialogComponent implements OnInit {
 
 	updatePaymentForm: FormGroup = this.formBuilder.group({
 		value: ['', [Validators.required, Validators.min(1)]],
-		paid: [''],
 		expirationDate: ['', [Validators.required]],
+		paidDate: ['', []],
 	});
 
 	loadingUpdatePayment: boolean = false;
@@ -68,8 +66,8 @@ export class UpdatePaymentDialogComponent implements OnInit {
 	ngOnInit(): void {
 		this.updatePaymentForm.patchValue({
 			value: this.updatePaymentData.value,
-			paid: this.updatePaymentData.paid,
 			expirationDate: this.updatePaymentData.expirationDate,
+			paidDate: this.updatePaymentData.paidDate,
 		});
 	}
 
@@ -79,7 +77,10 @@ export class UpdatePaymentDialogComponent implements OnInit {
 		const updatePaymentRequest: UpdatePaymentRequest = {
 			value: this.updatePaymentForm.value.value,
 			expirationDate: this.updatePaymentForm.value.expirationDate,
-			paid: this.updatePaymentForm.value.paid == true ? true : false,
+			paidDate:
+				this.updatePaymentForm.value.paidDate != null
+					? this.updatePaymentForm.value.paidDate
+					: null,
 		};
 
 		const updatePaymentResult = await this.paymentService.update(

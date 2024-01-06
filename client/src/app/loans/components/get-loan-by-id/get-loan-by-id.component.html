@@ -195,6 +195,13 @@
 						</td>
 					</ng-container>
 
+					<ng-container matColumnDef="paidDate">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>Paid Date</th>
+						<td mat-cell *matCellDef="let payment">
+							{{ payment.paidDate | date: 'MM/dd/yyyy' }}
+						</td>
+					</ng-container>
+
 					<ng-container matColumnDef="actions">
 						<th mat-header-cell *matHeaderCellDef>Actions</th>
 						<td mat-cell *matCellDef="let payment">
@@ -208,8 +215,8 @@
 											openUpdatePaymentDialog(
 												payment.id,
 												payment.value,
-												payment.paid,
-												payment.expirationDate
+												payment.expirationDate,
+												payment.paidDate
 											)
 										"
 										[disabled]="

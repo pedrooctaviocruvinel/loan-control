@@ -13,6 +13,7 @@ public class GetLoanByIdPaymentDTO
 {
     public Guid Id { get; set; }
     public decimal Value { get; set; }
-    public bool Paid { get; set; }
     public DateTime ExpirationDate { get; set; }
+    public DateTime? PaidDate { get; set; }
+    public bool Paid { get => DateTime.Now >= PaidDate; }
 }

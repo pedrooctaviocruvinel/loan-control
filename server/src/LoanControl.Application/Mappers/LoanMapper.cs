@@ -23,7 +23,7 @@ public class LoanMapper : Profile
         CreateMap<Payment, GetLoanByIdPaymentDTO>()
             .ForMember(llqr => llqr.Id, mce => mce.MapFrom(l => l.Id))
             .ForMember(llqr => llqr.Value, mce => mce.MapFrom(l => l.Value))
-            .ForMember(llqr => llqr.Paid, mce => mce.MapFrom(l => l.Paid))
-            .ForMember(llqr => llqr.ExpirationDate, mce => mce.MapFrom(l => l.ExpirationDate));
+            .ForMember(llqr => llqr.ExpirationDate, mce => mce.MapFrom(l => l.ExpirationDate))
+            .ForMember(llqr => llqr.PaidDate, mce => mce.MapFrom(l => l.PaidDate));
     }
 }

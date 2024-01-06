@@ -53,8 +53,8 @@ export class AddPaymentDialogComponent {
 
 	addPaymentForm: FormGroup = this.formBuilder.group({
 		value: ['', [Validators.required, Validators.min(1)]],
-		paid: [''],
 		expirationDate: ['', [Validators.required]],
+		paidDate: ['', []],
 	});
 
 	loadingAddPayment: boolean = false;
@@ -68,7 +68,10 @@ export class AddPaymentDialogComponent {
 		const addPaymentRequest: AddPaymentRequestDTO = {
 			value: this.addPaymentForm.value.value,
 			expirationDate: this.addPaymentForm.value.expirationDate,
-			paid: this.addPaymentForm.value.paid == true ? true : false,
+			paidDate:
+				this.addPaymentForm.value.paidDate != ''
+					? this.addPaymentForm.value.paidDate
+					: null,
 		};
 
 		const addPaymentResult = await this.paymentService.add(

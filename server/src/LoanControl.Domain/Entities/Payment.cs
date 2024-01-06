@@ -2,32 +2,33 @@
 
 public class Payment : Entity
 {
-    public Payment(decimal value, bool paid, DateTime expirationDate)
+    public Payment(decimal value, DateTime expirationDate, DateTime? paidDate)
     {
         Value = value;
-        Paid = paid;
         ExpirationDate = expirationDate;
+        PaidDate = paidDate;
     }
 
-    public Payment(decimal value, bool paid, DateTime expirationDate, Loan loan)
+    public Payment(decimal value, DateTime expirationDate, DateTime? paidDate, Loan loan)
     {
         Value = value;
-        Paid = paid;
         ExpirationDate = expirationDate;
+        PaidDate = paidDate;
         Loan = loan;
     }
 
     public decimal Value { get; private set; }
-    public bool Paid { get; private set; }
+
     public DateTime ExpirationDate { get; private set; }
+    public DateTime? PaidDate { get; private set; }
 
     public Loan Loan { get; private set; }
 
-    public void Update(decimal value, bool paid, DateTime expirationDate)
+    public void Update(decimal value, DateTime expirationDate, DateTime? paidDate)
     {
         Value = value;
-        Paid = paid;
         ExpirationDate = expirationDate;
+        PaidDate = paidDate;
 
         Update();
     }

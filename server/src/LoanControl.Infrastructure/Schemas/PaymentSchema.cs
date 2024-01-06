@@ -27,6 +27,10 @@ internal static class PaymentSchema
                 .HasColumnType("timestamptz")
                 .IsRequired();
 
+            etb.Property(p => p.PaidDate)
+                .HasColumnName("paid_date")
+                .HasColumnType("timestamptz");
+
             etb.Property(p => p.CreatedAt)
                 .HasColumnName("created_at")
                 .HasColumnType("timestamptz")

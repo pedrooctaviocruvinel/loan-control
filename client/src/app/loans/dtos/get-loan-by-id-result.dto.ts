@@ -3,6 +3,7 @@ export type GetLoanByIdResultPaymentDTO = {
 	value: number;
 	paid: boolean;
 	expirationDate: Date;
+	paidDate: Date;
 };
 
 export type GetLoanByIdResultDTO = {

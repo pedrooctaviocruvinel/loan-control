@@ -73,6 +73,7 @@ export class GetLoanByIdComponent implements OnInit {
 		'value',
 		'paid',
 		'expirationDate',
+		'paidDate',
 		'actions',
 	];
 	paymentsDataSourceSort: MatSort;
@@ -118,15 +119,15 @@ export class GetLoanByIdComponent implements OnInit {
 	openUpdatePaymentDialog(
 		id: string,
 		value: number,
-		paid: boolean,
-		expirationDate: Date
+		expirationDate: Date,
+		paidDate: Date
 	): void {
 		const dialogRef = this.matDialog.open(UpdatePaymentDialogComponent, {
 			data: {
 				id,
 				value,
-				paid,
 				expirationDate,
+				paidDate,
 			},
 			width: '100%',
 			disableClose: true,

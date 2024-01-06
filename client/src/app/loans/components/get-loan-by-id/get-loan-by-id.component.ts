@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
@@ -50,6 +50,7 @@ import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-pa
 export class GetLoanByIdComponent implements OnInit {
 	constructor(
 		private readonly activatedRoute: ActivatedRoute,
+		private readonly router: Router,
 		private readonly formBuilder: FormBuilder,
 		private readonly loanService: LoanService,
 		private readonly paymentService: PaymentService,
@@ -82,8 +83,12 @@ export class GetLoanByIdComponent implements OnInit {
 	updateLoanErrorCode: number = 0;
 	updateLoanErrors: string[] = [];
 
+	deleteLoanErrorCode: number = 0;
+	deleteLoanErrors: string[] = [];
+
 	loadingGetLoanById: boolean = false;
 	loadingUpdateLoan: boolean = false;
+	loadingDeleteLoan: boolean = false;
 	loadingRemovePayment: boolean = false;
 
 	ngOnInit(): void {
@@ -186,6 +191,25 @@ export class GetLoanByIdComponent implements OnInit {
 		}
 
 		this.loadingUpdateLoan = false;
+	}
+
+	async delete(): Promise<void> {
+		this.loadingDeleteLoan = true;
+
+		const deleteLoanResult = await this.loanService.delete(this.id);
+
+		if (!deleteLoanResult.success) {
+			this.deleteLoanErrorCode = deleteLoanResult.errorCode;
+			this.deleteLoanErrors = deleteLoanResult.errors;
+
+			this.toastrService.error('Error on Delete Loan', 'Delete Loan');
+		} else {
+			this.toastrService.success('Deleted successfully', 'Delete Loan');
+
+			this.router.navigate(['/loans']);
+		}
+
+		this.loadingDeleteLoan = false;
 	}
 
 	async removePayment(id: string): Promise<void> {

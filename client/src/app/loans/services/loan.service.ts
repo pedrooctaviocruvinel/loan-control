@@ -54,4 +54,15 @@ export class LoanService {
 
 		return await updateLoanResponse.json();
 	}
+
+	async delete(id: string): Promise<ResultWrapperModel<void>> {
+		const deleteLoanResponse = await fetch(
+			`${environment.serverUrl}/loans/${id}`,
+			{
+				method: 'DELETE',
+			}
+		);
+
+		return await deleteLoanResponse.json();
+	}
 }

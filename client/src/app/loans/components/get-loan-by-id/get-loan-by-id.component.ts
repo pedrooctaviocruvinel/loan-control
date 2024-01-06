@@ -24,6 +24,7 @@ import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 import { GetLoanByIdResultPaymentDTO } from '../../dtos/get-loan-by-id-result.dto';
 import { LoanService } from '../../services/loan.service';
 import { PaymentService } from '../../services/payment.service';
+import { AddPaymentDialogComponent } from '../add-payment-dialog/add-payment-dialog.component';
 import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-payment-dialog.component';
 
 @Component({
@@ -84,6 +85,24 @@ export class GetLoanByIdComponent implements OnInit {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
 		this.getLoanById(this.id);
+	}
+
+	openAddPaymentDialog(): void {
+		const dialogRef = this.matDialog.open(AddPaymentDialogComponent, {
+			data: {
+				loanId: this.id,
+			},
+			width: '100%',
+			disableClose: true,
+		});
+
+		dialogRef.afterClosed().subscribe((result: ResultWrapperModel<void>) => {
+			if (result.success) {
+				this.toastrService.success('Added successfully', 'Add Payment');
+
+				if (result) this.getLoanById(this.id);
+			}
+		});
 	}
 
 	openUpdatePaymentDialog(

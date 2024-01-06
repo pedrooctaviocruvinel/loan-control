@@ -120,6 +120,7 @@
 		<button
 			mat-flat-button
 			color="primary"
+			(click)="openAddPaymentDialog()"
 			[disabled]="
 				loadingGetLoanById === true ||
 				loadingRemovePayment === true ||

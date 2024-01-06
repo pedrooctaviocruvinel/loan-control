@@ -1,0 +1,45 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Backup</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content class="mt-4">
+		@if (loadingGenerateBackup) {
+			<app-loading></app-loading>
+		} @else {
+			@if (generateBackupErrorCode != 0) {
+				<app-error
+					title="Error on generate Backup"
+					[errors]="generateBackupErrors"></app-error>
+			} @else {
+				<div class="d-flex align-items-center justify-content-center">
+					<img
+						src="assets/images/backup.png"
+						class="img-fluid"
+						alt="Backup"
+						title="Backup" />
+				</div>
+			}
+		}
+	</mat-card-content>
+
+	<mat-card-actions class="mt-4">
+		<button
+			mat-flat-button
+			color="primary"
+			class="me-1"
+			(click)="generateBackup()"
+			[disabled]="generateBackupButtonDisabled">
+			<mat-icon fontIcon="cloud_download"></mat-icon>
+			Generate
+		</button>
+		<button
+			mat-flat-button
+			color="primary"
+			(click)="generateBackup()"
+			[disabled]="uploadBackupButtonDisabled">
+			<mat-icon fontIcon="backup"></mat-icon>
+			Upload
+		</button>
+	</mat-card-actions>
+</mat-card>

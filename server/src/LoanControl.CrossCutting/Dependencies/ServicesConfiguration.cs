@@ -7,6 +7,7 @@ internal static class ServicesConfiguration
 {
     public static void AddServices(this IServiceCollection services)
     {
+        services.AddTransient<BackupService>();
         services.AddTransient<LoanService>();
         services.AddTransient<PaymentService>();
     }

@@ -8,8 +8,15 @@ public class LoanRepository(ApplicationDataContext applicationDataContext) : ILo
 {
     private readonly ApplicationDataContext _applicationDataContext = applicationDataContext;
 
-    public async Task<IList<Loan>> List() =>
-        await _applicationDataContext.Loans.ToListAsync();
+    public async Task<IList<Loan>> List(bool includePayments = false)
+    {
+        IQueryable<Loan> loanQuery = _applicationDataContext.Loans;
+
+        if (includePayments)
+            loanQuery = _applicationDataContext.Loans.Include(l => l.Payments);
+
+        return await loanQuery.ToListAsync();
+    }
 
     public async Task<Loan> GetById(Guid id, bool includePayments = false)
     {

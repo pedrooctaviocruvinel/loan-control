@@ -4,7 +4,7 @@
 	</mat-card-header>
 
 	<mat-card-content class="mt-4">
-		@if (loadingGetLoanById == true) {
+		@if (loadingGetLoanById == true || loadingUpdateLoan == true) {
 			<app-loading></app-loading>
 		} @else {
 			@if (getLoanByIdErrorCode != 0) {
@@ -14,6 +14,14 @@
 						title="Error on get Loan" />
 				} @else {
 					<app-error [errors]="getLoanByIdErrors" title="Unexpected Error" />
+				}
+			} @else if (updateLoanErrorCode != 0) {
+				@if (updateLoanErrorCode == 1) {
+					<app-error
+						[errors]="['Loan doesn\'t exists']"
+						title="Error on update Loan" />
+				} @else {
+					<app-error [errors]="updateLoanErrors" title="Unexpected Error" />
 				}
 			} @else {
 				<form [formGroup]="updateLoanForm">
@@ -94,7 +102,13 @@
 			mat-flat-button
 			color="primary"
 			class="me-1"
-			[disabled]="!updateLoanForm.valid || loadingRemovePayment === true">
+			(click)="update()"
+			[disabled]="
+				!updateLoanForm.valid ||
+				loadingRemovePayment === true ||
+				loadingUpdateLoan === true ||
+				updateLoanErrorCode !== 0
+			">
 			<mat-icon fontIcon="save"></mat-icon>
 			Save
 		</button>
@@ -104,7 +118,9 @@
 			[disabled]="
 				loadingGetLoanById === true ||
 				loadingRemovePayment === true ||
-				getLoanByIdErrorCode !== 0
+				loadingUpdateLoan === true ||
+				getLoanByIdErrorCode !== 0 ||
+				updateLoanErrorCode !== 0
 			">
 			<mat-icon fontIcon="delete"></mat-icon>Delete
 		</button>
@@ -124,7 +140,9 @@
 			[disabled]="
 				loadingGetLoanById === true ||
 				loadingRemovePayment === true ||
-				getLoanByIdErrorCode !== 0
+				loadingUpdateLoan === true ||
+				getLoanByIdErrorCode !== 0 ||
+				updateLoanErrorCode !== 0
 			">
 			<mat-icon fontIcon="add"></mat-icon>
 			Add new Payment
@@ -132,7 +150,7 @@
 	</mat-card-actions>
 
 	<mat-card-content>
-		@if (loadingGetLoanById) {
+		@if (loadingGetLoanById || loadingUpdateLoan) {
 			<app-loading></app-loading>
 		} @else if (loadingRemovePayment) {
 			<app-loading></app-loading>
@@ -178,7 +196,8 @@
 												payment.paid,
 												payment.expirationDate
 											)
-										">
+										"
+										[disabled]="updateLoanErrorCode !== 0">
 										<mat-icon fontIcon="edit"></mat-icon>
 										Update
 									</button>
@@ -189,7 +208,8 @@
 										mat-flat-button
 										color="warn"
 										class="w-100"
-										(click)="removePayment(payment.id)">
+										(click)="removePayment(payment.id)"
+										[disabled]="updateLoanErrorCode !== 0">
 										<mat-icon fontIcon="delete"></mat-icon>
 										Remove
 									</button>

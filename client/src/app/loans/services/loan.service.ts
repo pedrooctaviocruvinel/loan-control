@@ -7,6 +7,7 @@ import { environment } from '@/environments/environment';
 import { CreateLoanRequestDTO } from '../dtos/create-loan-request.dto';
 import { GetLoanByIdResultDTO } from '../dtos/get-loan-by-id-result.dto';
 import { ListLoansResultDTO } from '../dtos/list-loans-result.dto';
+import { UpdateLoanRequestDTO } from '../dtos/update-loan-request.dto';
 
 @Injectable({
 	providedIn: 'root',
@@ -27,14 +28,30 @@ export class LoanService {
 	}
 
 	async create(
-		createLoanRequest: CreateLoanRequestDTO
+		request: CreateLoanRequestDTO
 	): Promise<ResultWrapperModel<void>> {
 		const createLoanResponse = await fetch(environment.serverUrl + '/loans', {
 			method: 'POST',
 			headers: headers,
-			body: JSON.stringify(createLoanRequest),
+			body: JSON.stringify(request),
 		});
 
 		return await createLoanResponse.json();
+	}
+
+	async update(
+		id: string,
+		request: UpdateLoanRequestDTO
+	): Promise<ResultWrapperModel<void>> {
+		const updateLoanResponse = await fetch(
+			`${environment.serverUrl}/loans/${id}`,
+			{
+				method: 'PUT',
+				headers: headers,
+				body: JSON.stringify(request),
+			}
+		);
+
+		return await updateLoanResponse.json();
 	}
 }

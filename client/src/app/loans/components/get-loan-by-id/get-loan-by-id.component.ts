@@ -22,6 +22,7 @@ import { LoadingComponent } from '@/app/shared/components/loading/loading.compon
 import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 
 import { GetLoanByIdResultPaymentDTO } from '../../dtos/get-loan-by-id-result.dto';
+import { UpdateLoanRequestDTO } from '../../dtos/update-loan-request.dto';
 import { LoanService } from '../../services/loan.service';
 import { PaymentService } from '../../services/payment.service';
 import { AddPaymentDialogComponent } from '../add-payment-dialog/add-payment-dialog.component';
@@ -78,7 +79,11 @@ export class GetLoanByIdComponent implements OnInit {
 	getLoanByIdErrorCode: number = 0;
 	getLoanByIdErrors: string[] = [];
 
+	updateLoanErrorCode: number = 0;
+	updateLoanErrors: string[] = [];
+
 	loadingGetLoanById: boolean = false;
+	loadingUpdateLoan: boolean = false;
 	loadingRemovePayment: boolean = false;
 
 	ngOnInit(): void {
@@ -154,6 +159,33 @@ export class GetLoanByIdComponent implements OnInit {
 		}
 
 		this.loadingGetLoanById = false;
+	}
+
+	async update(): Promise<void> {
+		this.loadingUpdateLoan = true;
+
+		const updateLoanRequest: UpdateLoanRequestDTO = {
+			name: this.updateLoanForm.value.name,
+			totalFunded: this.updateLoanForm.value.totalFunded,
+		};
+
+		const updateLoanResult = await this.loanService.update(
+			this.id,
+			updateLoanRequest
+		);
+
+		if (!updateLoanResult.success) {
+			this.updateLoanErrorCode = updateLoanResult.errorCode;
+			this.updateLoanErrors = updateLoanResult.errors;
+
+			this.toastrService.error('Error on Update Loan', 'Update Loan');
+		} else {
+			this.toastrService.success('Update successfully', 'Update Loan');
+
+			this.getLoanById(this.id);
+		}
+
+		this.loadingUpdateLoan = false;
 	}
 
 	async removePayment(id: string): Promise<void> {

@@ -166,7 +166,18 @@
 						<td mat-cell *matCellDef="let payment">
 							<div class="row">
 								<div class="col">
-									<button mat-flat-button color="primary" class="w-100">
+									<button
+										mat-flat-button
+										color="primary"
+										class="w-100"
+										(click)="
+											openUpdatePaymentDialog(
+												payment.id,
+												payment.value,
+												payment.paid,
+												payment.expirationDate
+											)
+										">
 										<mat-icon fontIcon="edit"></mat-icon>
 										Update
 									</button>

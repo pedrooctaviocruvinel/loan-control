@@ -1,0 +1,89 @@
+<h1 mat-dialog-title>Update Payment</h1>
+
+<div mat-dialog-content>
+	@if (loadingUpdatePayment) {
+		<app-loading></app-loading>
+	} @else {
+		@if (updatePaymentErrorCode != 0) {
+			@if (updatePaymentErrorCode == 2) {
+				<app-error
+					title="Error on update Payment"
+					[errors]="['Payment doesn\'t exists']"></app-error>
+			} @else {
+				<app-error
+					title="Error on update Payment"
+					[errors]="updatePaymentErrors"></app-error>
+			}
+		} @else {
+			<form [formGroup]="updatePaymentForm">
+				<div class="row">
+					<div class="form-group col-md-5">
+						<mat-form-field class="w-100">
+							<mat-label>Value</mat-label>
+							<input
+								formControlName="value"
+								matInput
+								type="number"
+								placeholder="0" />
+						</mat-form-field>
+
+						@if (payment.value.touched) {
+							<div>
+								@if (payment.value.errors?.required) {
+									<p class="d-block invalid-feedback">* required</p>
+								}
+
+								@if (payment.value.errors?.min) {
+									<p class="d-block invalid-feedback">* at least R$ 1</p>
+								}
+							</div>
+						}
+					</div>
+
+					<div class="form-group col-md-5">
+						<mat-form-field class="w-100">
+							<mat-label>Expiration Date</mat-label>
+							<input
+								formControlName="expirationDate"
+								matInput
+								[matDatepicker]="picker" />
+							<mat-datepicker-toggle
+								matIconSuffix
+								[for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
+						</mat-form-field>
+
+						@if (payment.expirationDate.touched) {
+							<div>
+								@if (payment.expirationDate.errors?.required) {
+									<p class="d-block invalid-feedback">* required</p>
+								}
+							</div>
+						}
+					</div>
+
+					<div class="col-md-2">
+						<div class="d-flex align-items-center justify-content-center">
+							<mat-slide-toggle formControlName="paid">Paid</mat-slide-toggle>
+						</div>
+					</div>
+				</div>
+			</form>
+		}
+	}
+</div>
+
+<div mat-dialog-actions align="end">
+	<button
+		mat-flat-button
+		color="primary"
+		(click)="updatePayment()"
+		[disabled]="!updatePaymentForm.valid || updatePaymentErrorCode !== 0">
+		<mat-icon fontIcon="save"></mat-icon>
+		Save
+	</button>
+
+	<button mat-button mat-dialog-close>
+		<mat-icon fontIcon="cancel"></mat-icon>Cancel
+	</button>
+</div>

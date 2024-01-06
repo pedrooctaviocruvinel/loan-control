@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -18,10 +19,12 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
+import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 
 import { GetLoanByIdResultPaymentDTO } from '../../dtos/get-loan-by-id-result.dto';
 import { LoanService } from '../../services/loan.service';
 import { PaymentService } from '../../services/payment.service';
+import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-payment-dialog.component';
 
 @Component({
 	selector: 'app-get-loan-by-id',
@@ -38,6 +41,7 @@ import { PaymentService } from '../../services/payment.service';
 		MatButtonModule,
 		MatSortModule,
 		CommonModule,
+		MatDialogModule,
 	],
 	templateUrl: './get-loan-by-id.component.html',
 })
@@ -47,7 +51,8 @@ export class GetLoanByIdComponent implements OnInit {
 		private readonly formBuilder: FormBuilder,
 		private readonly loanService: LoanService,
 		private readonly paymentService: PaymentService,
-		private readonly toastrService: ToastrService
+		private readonly toastrService: ToastrService,
+		private readonly matDialog: MatDialog
 	) {}
 
 	id: string;
@@ -79,6 +84,32 @@ export class GetLoanByIdComponent implements OnInit {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
 		this.getLoanById(this.id);
+	}
+
+	openUpdatePaymentDialog(
+		id: string,
+		value: number,
+		paid: boolean,
+		expirationDate: Date
+	): void {
+		const dialogRef = this.matDialog.open(UpdatePaymentDialogComponent, {
+			data: {
+				id,
+				value,
+				paid,
+				expirationDate,
+			},
+			width: '100%',
+			disableClose: true,
+		});
+
+		dialogRef.afterClosed().subscribe((result: ResultWrapperModel<void>) => {
+			if (result.success) {
+				this.toastrService.success('Updated successfully', 'Update Payment');
+
+				if (result) this.getLoanById(this.id);
+			}
+		});
 	}
 
 	async getLoanById(id: string): Promise<void> {

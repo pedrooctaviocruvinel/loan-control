@@ -69,7 +69,9 @@ export class ListLoansComponent implements OnInit {
 	}
 
 	openCreateLoanDialog(): void {
-		const dialogRef = this.matDialog.open(CreateLoanDialogComponent);
+		const dialogRef = this.matDialog.open(CreateLoanDialogComponent, {
+			width: '100%',
+		});
 
 		dialogRef.afterClosed().subscribe((result: ResultWrapperModel<void>) => {
 			if (result.success) {

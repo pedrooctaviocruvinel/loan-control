@@ -65,11 +65,19 @@ export class CreateLoanDialogComponent {
 		this.loadingCreateLoan = true;
 
 		const loanPayments: CreateLoanPaymentDTO[] = this.loanPayments.value.map(
-			(lp: { value: number; paid: boolean; expirationDate: Date }) => ({
-				value: lp.value,
-				paid: lp.paid == true ? true : false,
-				expirationDate: lp.expirationDate,
-			})
+			(lp: { value: number; expirationDate: Date; paidDate: any }) => {
+				let paidDate = lp.paidDate;
+
+				if (lp.paidDate == '' || lp.paidDate == null) {
+					paidDate = null;
+				}
+
+				return {
+					value: lp.value,
+					expirationDate: lp.expirationDate,
+					paidDate: paidDate,
+				};
+			}
 		);
 
 		const createLoanRequest: CreateLoanRequestDTO = {
@@ -92,8 +100,8 @@ export class CreateLoanDialogComponent {
 	addPayment(): void {
 		const paymentForm = this.formBuilder.group({
 			value: ['', [Validators.required, Validators.min(1)]],
-			paid: ['', []],
 			expirationDate: ['', [Validators.required]],
+			paidDate: ['', []],
 		});
 
 		this.loanPayments.push(paymentForm);

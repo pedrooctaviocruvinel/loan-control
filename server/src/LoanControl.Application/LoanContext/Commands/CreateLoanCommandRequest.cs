@@ -14,6 +14,6 @@ public class CreateLoanCommandRequest : IRequest<ResultWrapper>
 public class CreateLoanPaymentDTO
 {
     public decimal Value { get; set; }
-    public bool Paid { get; set; }
     public DateTime ExpirationDate { get; set; }
+    public DateTime? PaidDate { get; set; }
 }

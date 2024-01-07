@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LoanControl.Application.BackupContext.Commands;
+using LoanControl.Application.BackupContext.Commands.DTOs;
 using LoanControl.Domain.Entities;
 
 namespace LoanControl.Application.Mappers;

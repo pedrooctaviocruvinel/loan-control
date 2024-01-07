@@ -9,7 +9,7 @@ public class Loan(string name, decimal totalFunded) : Entity
 
     public List<Payment> Payments { get; private set; } = [];
 
-    public LoanPaymentsStatusVO? PaymentsStatus { get => BuildLoanPaymentsStatus(); }
+    public LoanPaymentsStatusVO PaymentsStatus => BuildLoanPaymentsStatus();
 
     public void AddPayments(List<Payment> payments) =>
         Payments.AddRange(payments);
@@ -24,13 +24,13 @@ public class Loan(string name, decimal totalFunded) : Entity
 
     private LoanPaymentsStatusVO BuildLoanPaymentsStatus()
     {
-        if (!Payments.Any())
+        if (Payments.Count == 0)
             return null;
 
-        var paymentsCount = Payments.Count();
+        var paymentsCount = Payments.Count;
         var paymentsPaid = Payments.Count(p => p.Paid);
         var remainingPayments = paymentsCount - paymentsPaid;
-        var nextPaymentDate = Payments.Count < 1 ? Payments.Where(p => p.ExpirationDate > DateTime.Now).OrderBy(p => p.ExpirationDate).FirstOrDefault().ExpirationDate : Payments.FirstOrDefault().ExpirationDate;
+        var nextPaymentDate = Payments.Count < 1 ? Payments.Where(p => p.ExpirationDate > DateTime.Now).OrderBy(p => p.ExpirationDate).FirstOrDefault()!.ExpirationDate : Payments.FirstOrDefault()!.ExpirationDate;
         var totalToBeReceived = Payments.Sum(p => p.Value);
         var totalReceived = Payments.Where(p => p.Paid).Sum(p => p.Value);
         var expectedProfit = totalToBeReceived - TotalFunded;

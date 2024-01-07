@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LoanControl.Application.LoanContext.Queries;
+using LoanControl.Application.LoanContext.Queries.DTOs;
 using LoanControl.Domain.Entities;
 using LoanControl.Domain.Entities.ValueObjects;
 

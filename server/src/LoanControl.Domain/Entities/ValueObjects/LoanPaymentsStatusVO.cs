@@ -1,25 +1,13 @@
 ﻿namespace LoanControl.Domain.Entities.ValueObjects;
 
-public class LoanPaymentsStatusVO
+public class LoanPaymentsStatusVO(int paymentsCount, int paymentsPaid, int remainingPayments, DateTime nextPaymentDate, decimal totalToBeReceived, decimal totalReceived, decimal expectedProfit, decimal profit)
 {
-    public LoanPaymentsStatusVO(int paymentsCount, int paymentsPaid, int remainingPayments, DateTime nextPaymentDate, decimal totalToBeReceived, decimal totalReceived, decimal expectedProfit, decimal profit)
-    {
-        PaymentsCount = paymentsCount;
-        PaymentsPaid = paymentsPaid;
-        RemainingPayments = remainingPayments;
-        NextPaymentDate = nextPaymentDate;
-        TotalToBeReceived = totalToBeReceived;
-        TotalReceived = totalReceived;
-        ExpectedProfit = expectedProfit;
-        Profit = profit;
-    }
-
-    public int PaymentsCount { get; }
-    public int PaymentsPaid { get; }
-    public int RemainingPayments { get; }
-    public DateTime NextPaymentDate { get; }
-    public decimal TotalToBeReceived { get; }
-    public decimal TotalReceived { get; }
-    public decimal ExpectedProfit { get; }
-    public decimal Profit { get; }
+    public int PaymentsCount { get; } = paymentsCount;
+    public int PaymentsPaid { get; } = paymentsPaid;
+    public int RemainingPayments { get; } = remainingPayments;
+    public DateTime NextPaymentDate { get; } = nextPaymentDate;
+    public decimal TotalToBeReceived { get; } = totalToBeReceived;
+    public decimal TotalReceived { get; } = totalReceived;
+    public decimal ExpectedProfit { get; } = expectedProfit;
+    public decimal Profit { get; } = profit;
 }

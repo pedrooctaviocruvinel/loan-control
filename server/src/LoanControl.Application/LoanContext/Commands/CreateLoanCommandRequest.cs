@@ -1,4 +1,5 @@
-﻿using LoanControl.CrossCutting.Core.Models;
+﻿using LoanControl.Application.LoanContext.Commands.DTOs;
+using LoanControl.CrossCutting.Core.Models;
 using MediatR;
 
 namespace LoanControl.Application.LoanContext.Commands;
@@ -11,9 +12,3 @@ public class CreateLoanCommandRequest : IRequest<ResultWrapper>
     public List<CreateLoanPaymentDTO> Payments { get; set; }
 }
 
-public class CreateLoanPaymentDTO
-{
-    public decimal Value { get; set; }
-    public DateTime ExpirationDate { get; set; }
-    public DateTime? PaidDate { get; set; }
-}

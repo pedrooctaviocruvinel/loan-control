@@ -8,12 +8,9 @@ namespace LoanControl.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BackupController : ControllerBase
+    public class BackupController(IMediator mediator) : ControllerBase
     {
-        public BackupController(IMediator mediator) =>
-            _mediator = mediator;
-
-        private readonly IMediator _mediator;
+        private readonly IMediator _mediator = mediator;
 
         [HttpPost("generate")]
         public async Task<IActionResult> GenerateBackup()

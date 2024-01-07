@@ -17,10 +17,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
 
-import {
-	CreateLoanPaymentDTO,
-	CreateLoanRequestDTO,
-} from '../../dtos/create-loan-request.dto';
+import { CreateLoanRequestDTO } from '../../dtos/create-loan-request.dto';
+import { CreateLoanPaymentVO } from '../../dtos/valueObjects/create-loan-payment.vo';
 import { LoanService } from '../../services/loan.service';
 
 @Component({
@@ -64,7 +62,7 @@ export class CreateLoanDialogComponent {
 	async createLoan(): Promise<void> {
 		this.loadingCreateLoan = true;
 
-		const loanPayments: CreateLoanPaymentDTO[] = this.loanPayments.value.map(
+		const loanPayments: CreateLoanPaymentVO[] = this.loanPayments.value.map(
 			(lp: { value: number; expirationDate: Date; paidDate: any }) => {
 				let paidDate = lp.paidDate;
 

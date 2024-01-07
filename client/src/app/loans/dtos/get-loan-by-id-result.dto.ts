@@ -1,27 +1,11 @@
-export type GetLoanByIdResultPaymentDTO = {
-	id: string;
-	value: number;
-	paid: boolean;
-	expirationDate: Date;
-	paidDate: Date;
-};
-
-export type GetLoanByIdPaymentsStatusDTO = {
-	paymentsCount: number;
-	paymentsPaid: number;
-	nextPaymentDate: Date;
-	remainingPayments: number;
-	totalToBeReceived: number;
-	totalReceived: number;
-	expectedProfit: number;
-	profit: number;
-};
+import { GetLoanByIdPaymentVO } from './valueObjects/get-loan-by-id-payment.vo';
+import { GetLoanByIdPaymentsStatusVO } from './valueObjects/get-loan-by-id-payments-status.vo';
 
 export type GetLoanByIdResultDTO = {
 	name: string;
 	totalFunded: number;
 	createdAt: Date;
 	updatedAt: Date;
-	payments: GetLoanByIdResultPaymentDTO[];
-	paymentsStatus: GetLoanByIdPaymentsStatusDTO;
+	payments: GetLoanByIdPaymentVO[];
+	paymentsStatus: GetLoanByIdPaymentsStatusVO;
 };

@@ -1,11 +1,7 @@
-export type CreateLoanPaymentDTO = {
-	value: number;
-	expirationDate: Date;
-	paidDate: Date;
-};
+import { CreateLoanPaymentVO } from './valueObjects/create-loan-payment.vo';
 
 export type CreateLoanRequestDTO = {
 	name: string;
 	totalFunded: number;
-	payments: CreateLoanPaymentDTO[];
+	payments: CreateLoanPaymentVO[];
 };

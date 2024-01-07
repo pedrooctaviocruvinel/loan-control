@@ -12,13 +12,11 @@ import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
 import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 
-import {
-	ListLoansLoanDTO,
-	ListLoansPaymentsStatusDTO,
-} from '../../dtos/list-loans-result.dto';
+import { CreateLoanDialogComponent } from '../../dialogs/create-loan-dialog/create-loan-dialog.component';
+import { ListLoansLoanVO } from '../../dtos/valueObjects/list-loans-loan.vo';
+import { ListLoansPaymentsStatusVO } from '../../dtos/valueObjects/list-loans-payments-status.vo';
 import { LoanService } from '../../services/loan.service';
-import { CreateLoanDialogComponent } from '../create-loan-dialog/create-loan-dialog.component';
-import { LoanPaymentStatusComponent } from '../get-loan-by-id/components/loan-payment-status/loan-payment-status.component';
+import { LoanPaymentStatusComponent } from '../components/loan-payment-status/loan-payment-status.component';
 
 @Component({
 	selector: 'app-list-loans',
@@ -48,11 +46,11 @@ export class ListLoansComponent implements OnInit {
 		this.listLoans();
 	}
 
-	loansDataSource = new MatTableDataSource<ListLoansLoanDTO>();
+	loansDataSource = new MatTableDataSource<ListLoansLoanVO>();
 	loansDataSourceColumns = ['name', 'totalFunded', 'createdAt'];
 	loansDataSourceSort: MatSort;
 
-	paymentsStatus: ListLoansPaymentsStatusDTO;
+	paymentsStatus: ListLoansPaymentsStatusVO;
 
 	listLoansErrors: string[] = [];
 
@@ -64,7 +62,7 @@ export class ListLoansComponent implements OnInit {
 		const listLoansResult = await this.loanService.list();
 
 		if (listLoansResult.success) {
-			this.loansDataSource = new MatTableDataSource<ListLoansLoanDTO>(
+			this.loansDataSource = new MatTableDataSource<ListLoansLoanVO>(
 				listLoansResult.data.loans
 			);
 			this.loansDataSource.sort = this.loansDataSourceSort;

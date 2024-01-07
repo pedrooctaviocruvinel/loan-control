@@ -21,16 +21,14 @@ import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
 import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 
-import {
-	GetLoanByIdPaymentsStatusDTO,
-	GetLoanByIdResultPaymentDTO,
-} from '../../dtos/get-loan-by-id-result.dto';
+import { AddPaymentDialogComponent } from '../../dialogs/add-payment-dialog/add-payment-dialog.component';
+import { UpdatePaymentDialogComponent } from '../../dialogs/update-payment-dialog/update-payment-dialog.component';
 import { UpdateLoanRequestDTO } from '../../dtos/update-loan-request.dto';
+import { GetLoanByIdPaymentVO } from '../../dtos/valueObjects/get-loan-by-id-payment.vo';
+import { GetLoanByIdPaymentsStatusVO } from '../../dtos/valueObjects/get-loan-by-id-payments-status.vo';
 import { LoanService } from '../../services/loan.service';
 import { PaymentService } from '../../services/payment.service';
-import { AddPaymentDialogComponent } from '../add-payment-dialog/add-payment-dialog.component';
-import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-payment-dialog.component';
-import { LoanPaymentStatusComponent } from './components/loan-payment-status/loan-payment-status.component';
+import { LoanPaymentStatusComponent } from '../components/loan-payment-status/loan-payment-status.component';
 
 @Component({
 	selector: 'app-get-loan-by-id',
@@ -72,8 +70,7 @@ export class GetLoanByIdComponent implements OnInit {
 		updatedAt: [''],
 	});
 
-	paymentsaymentsDataSource =
-		new MatTableDataSource<GetLoanByIdResultPaymentDTO>();
+	paymentsaymentsDataSource = new MatTableDataSource<GetLoanByIdPaymentVO>();
 	paymentsaymentsDataSourceColumns = [
 		'value',
 		'paid',
@@ -97,7 +94,7 @@ export class GetLoanByIdComponent implements OnInit {
 	loadingDeleteLoan: boolean = false;
 	loadingRemovePayment: boolean = false;
 
-	paymentsStatus: GetLoanByIdPaymentsStatusDTO;
+	paymentsStatus: GetLoanByIdPaymentsStatusVO;
 
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -166,7 +163,7 @@ export class GetLoanByIdComponent implements OnInit {
 			});
 
 			this.paymentsaymentsDataSource =
-				new MatTableDataSource<GetLoanByIdResultPaymentDTO>(
+				new MatTableDataSource<GetLoanByIdPaymentVO>(
 					getLoanByIdResult.data.payments
 				);
 

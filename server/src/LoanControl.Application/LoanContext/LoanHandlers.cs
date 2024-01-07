@@ -9,7 +9,7 @@ using MediatR;
 namespace LoanControl.Application.LoanContext;
 
 internal class LoanHandlers(LoanService loanService, IMapper mapper) :
-    IRequestHandler<ListLoansQueryRequest, ResultWrapper<List<ListLoansQueryResult>>>,
+    IRequestHandler<ListLoansQueryRequest, ResultWrapper<ListLoansQueryResult>>,
     IRequestHandler<GetLoanByIdQueryRequest, ResultWrapper<GetLoanByIdQueryResult>>,
     IRequestHandler<CreateLoanCommandRequest, ResultWrapper>,
     IRequestHandler<UpdateLoanCommandRequest, ResultWrapper>,
@@ -18,13 +18,13 @@ internal class LoanHandlers(LoanService loanService, IMapper mapper) :
     private readonly LoanService _loanService = loanService;
     private readonly IMapper _mapper = mapper;
 
-    public async Task<ResultWrapper<List<ListLoansQueryResult>>> Handle(ListLoansQueryRequest request, CancellationToken cancellationToken)
+    public async Task<ResultWrapper<ListLoansQueryResult>> Handle(ListLoansQueryRequest request, CancellationToken cancellationToken)
     {
         var listLoansResult = await _loanService.List();
 
-        var mappedLoans = _mapper.Map<List<ListLoansQueryResult>>(listLoansResult.Data);
+        var mappedLoans = _mapper.Map<ListLoansQueryResult>(listLoansResult.Data);
 
-        return new ResultWrapper<List<ListLoansQueryResult>>(mappedLoans);
+        return new ResultWrapper<ListLoansQueryResult>(mappedLoans);
     }
 
     public async Task<ResultWrapper<GetLoanByIdQueryResult>> Handle(GetLoanByIdQueryRequest queryRequest, CancellationToken cancellationToken)

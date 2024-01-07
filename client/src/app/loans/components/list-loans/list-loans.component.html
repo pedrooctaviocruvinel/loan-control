@@ -1,4 +1,58 @@
-<mat-card>
+@if (paymentsStatus != null) {
+	<div class="row">
+		<div class="col">
+			<app-loan-payment-status
+				title="Total Funded"
+				[loading]="loadingListLoans"
+				[error]="listLoansErrors.length !== 0"
+				value="{{
+					paymentsStatus?.totalFunded | currency
+				}}"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Total to be Received"
+				[loading]="loadingListLoans"
+				[error]="listLoansErrors.length !== 0"
+				value="{{
+					paymentsStatus?.totalToBeReceived | currency
+				}}"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Total Received"
+				[loading]="loadingListLoans"
+				[error]="listLoansErrors.length !== 0"
+				value="{{
+					paymentsStatus?.totalReceived | currency
+				}}"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Expected Profit"
+				[loading]="loadingListLoans"
+				[error]="listLoansErrors.length !== 0"
+				value="{{ paymentsStatus?.expectedProfit | currency }}"
+				valueColor="text-success"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Profit"
+				[loading]="loadingListLoans"
+				[error]="listLoansErrors.length !== 0"
+				value="{{ paymentsStatus?.profit | currency }}"
+				[valueColor]="
+					paymentsStatus?.profit < 0 ? 'text-danger' : 'text-success'
+				"></app-loan-payment-status>
+		</div>
+	</div>
+}
+
+<mat-card class="mt-4">
 	<mat-card-header>
 		<mat-card-title>Loans</mat-card-title>
 	</mat-card-header>

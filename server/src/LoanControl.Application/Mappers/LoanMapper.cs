@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using LoanControl.Application.LoanContext.Queries;
 using LoanControl.Application.LoanContext.Queries.DTOs;
+using LoanControl.Domain.DTOs;
+using LoanControl.Domain.DTOs.ValueObjects;
 using LoanControl.Domain.Entities;
 using LoanControl.Domain.Entities.ValueObjects;
 
@@ -10,11 +12,22 @@ public class LoanMapper : Profile
 {
     public LoanMapper()
     {
-        CreateMap<Loan, ListLoansQueryResult>()
+        CreateMap<LoansPaymentsStatusDTO, ListLoansQueryResult>()
+            .ForMember(llqr => llqr.Loans, mce => mce.MapFrom(l => l.Loans))
+            .ForMember(llqr => llqr.PaymentsStatus, mce => mce.MapFrom(l => l.PaymentsStatus));
+
+        CreateMap<Loan, ListLoansLoanDTO>()
             .ForMember(llqr => llqr.Id, mce => mce.MapFrom(l => l.Id))
             .ForMember(llqr => llqr.Name, mce => mce.MapFrom(l => l.Name))
             .ForMember(llqr => llqr.TotalFunded, mce => mce.MapFrom(l => l.TotalFunded))
             .ForMember(llqr => llqr.CreatedAt, mce => mce.MapFrom(l => l.CreatedAt));
+
+        CreateMap<LoansPaymentsStatusVO, ListLoansPaymentsStatusDTO>()
+            .ForMember(llqr => llqr.TotalFunded, mce => mce.MapFrom(l => l.TotalFunded))
+            .ForMember(llqr => llqr.TotalToBeReceived, mce => mce.MapFrom(l => l.TotalToBeReceived))
+            .ForMember(llqr => llqr.TotalReceived, mce => mce.MapFrom(l => l.TotalReceived))
+            .ForMember(llqr => llqr.ExpectedProfit, mce => mce.MapFrom(l => l.ExpectedProfit))
+            .ForMember(llqr => llqr.Profit, mce => mce.MapFrom(l => l.Profit));
 
         CreateMap<Loan, GetLoanByIdQueryResult>()
             .ForMember(llqr => llqr.Name, mce => mce.MapFrom(l => l.Name))

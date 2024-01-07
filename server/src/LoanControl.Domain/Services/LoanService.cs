@@ -1,5 +1,6 @@
 ﻿using LoanControl.CrossCutting.Core.Enums;
 using LoanControl.CrossCutting.Core.Models;
+using LoanControl.Domain.DTOs;
 using LoanControl.Domain.Entities;
 using LoanControl.Domain.Repositories;
 
@@ -9,11 +10,13 @@ public class LoanService(ILoanRepository loanRepository)
 {
     private readonly ILoanRepository _loanRepository = loanRepository;
 
-    public async Task<ResultWrapper<IList<Loan>>> List()
+    public async Task<ResultWrapper<LoansPaymentsStatusDTO>> List()
     {
-        var loans = await _loanRepository.List();
+        var loans = await _loanRepository.List(true);
 
-        return new ResultWrapper<IList<Loan>>(loans);
+        var loansPaymentsStatusDTO = new LoansPaymentsStatusDTO((List<Loan>)loans);
+
+        return new ResultWrapper<LoansPaymentsStatusDTO>(loansPaymentsStatusDTO);
     }
 
     public async Task<ResultWrapper<Loan>> GetById(Guid id)

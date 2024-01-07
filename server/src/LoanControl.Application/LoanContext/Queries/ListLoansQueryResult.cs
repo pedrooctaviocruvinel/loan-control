@@ -1,9 +1,9 @@
-﻿namespace LoanControl.Application.LoanContext.Queries;
+﻿using LoanControl.Application.LoanContext.Queries.DTOs;
+
+namespace LoanControl.Application.LoanContext.Queries;
 
 public class ListLoansQueryResult
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public decimal TotalFunded { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public List<ListLoansLoanDTO> Loans { get; set; }
+    public ListLoansPaymentsStatusDTO PaymentsStatus { get; set; }
 }

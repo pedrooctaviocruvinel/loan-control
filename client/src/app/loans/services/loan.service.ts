@@ -13,7 +13,7 @@ import { UpdateLoanRequestDTO } from '../dtos/update-loan-request.dto';
 	providedIn: 'root',
 })
 export class LoanService {
-	async list(): Promise<ResultWrapperModel<ListLoansResultDTO[]>> {
+	async list(): Promise<ResultWrapperModel<ListLoansResultDTO>> {
 		const listLoansResponse = await fetch(environment.serverUrl + '/loans');
 
 		return await listLoansResponse.json();

@@ -18,7 +18,7 @@ internal static class PaymentSchema
                 .IsRequired();
 
             etb.Property(p => p.Value)
-               .HasColumnName("total_funded")
+               .HasColumnName("value")
                .HasColumnType("decimal(18, 2)")
                .IsRequired();
 

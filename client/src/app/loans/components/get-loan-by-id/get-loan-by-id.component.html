@@ -140,7 +140,7 @@
 	</mat-card-actions>
 </mat-card>
 
-@if (loanPaymentsStatus != null) {
+@if (paymentsStatus != null) {
 	<div class="row">
 		<div class="col">
 			<app-loan-payment-status
@@ -152,7 +152,7 @@
 					deleteLoanErrorCode !== 0
 				"
 				value="{{
-					loanPaymentsStatus?.totalToBeReceived | currency
+					paymentsStatus?.totalToBeReceived | currency
 				}}"></app-loan-payment-status>
 		</div>
 
@@ -166,7 +166,7 @@
 					deleteLoanErrorCode !== 0
 				"
 				value="{{
-					loanPaymentsStatus?.totalReceived | currency
+					paymentsStatus?.totalReceived | currency
 				}}"></app-loan-payment-status>
 		</div>
 
@@ -179,7 +179,7 @@
 					updateLoanErrorCode !== 0 ||
 					deleteLoanErrorCode !== 0
 				"
-				value="{{ loanPaymentsStatus?.expectedProfit | currency }}"
+				value="{{ paymentsStatus?.expectedProfit | currency }}"
 				valueColor="text-success"></app-loan-payment-status>
 		</div>
 
@@ -192,9 +192,9 @@
 					updateLoanErrorCode !== 0 ||
 					deleteLoanErrorCode !== 0
 				"
-				value="{{ loanPaymentsStatus?.profit | currency }}"
+				value="{{ paymentsStatus?.profit | currency }}"
 				[valueColor]="
-					loanPaymentsStatus?.profit < 0 ? 'text-danger' : 'text-success'
+					paymentsStatus?.profit < 0 ? 'text-danger' : 'text-success'
 				"></app-loan-payment-status>
 		</div>
 	</div>
@@ -210,7 +210,7 @@
 					deleteLoanErrorCode !== 0
 				"
 				[value]="
-					loanPaymentsStatus?.paymentsCount.toString()
+					paymentsStatus?.paymentsCount.toString()
 				"></app-loan-payment-status>
 		</div>
 
@@ -224,7 +224,7 @@
 					deleteLoanErrorCode !== 0
 				"
 				[value]="
-					loanPaymentsStatus?.paymentsPaid.toString()
+					paymentsStatus?.paymentsPaid.toString()
 				"></app-loan-payment-status>
 		</div>
 
@@ -238,7 +238,7 @@
 					deleteLoanErrorCode !== 0
 				"
 				[value]="
-					loanPaymentsStatus?.remainingPayments.toString()
+					paymentsStatus?.remainingPayments.toString()
 				"></app-loan-payment-status>
 		</div>
 
@@ -252,7 +252,7 @@
 					deleteLoanErrorCode !== 0
 				"
 				value="{{
-					loanPaymentsStatus?.nextPaymentDate | date: 'MM/dd/yyyy'
+					paymentsStatus?.nextPaymentDate | date: 'MM/dd/yyyy'
 				}}"></app-loan-payment-status>
 		</div>
 	</div>

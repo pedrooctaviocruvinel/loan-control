@@ -35,7 +35,6 @@ internal class LoanHandlers(LoanService loanService, IMapper mapper) :
             return new ResultWrapper<GetLoanByIdQueryResult>(getLoanByIdResult.ErrorCode);
 
         var mappedLoan = _mapper.Map<GetLoanByIdQueryResult>(getLoanByIdResult.Data);
-        mappedLoan.BuildLoanPaymentsStatus();
 
         return new ResultWrapper<GetLoanByIdQueryResult>(mappedLoan);
     }

@@ -22,7 +22,7 @@ import { LoadingComponent } from '@/app/shared/components/loading/loading.compon
 import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 
 import {
-	GetLoanByIdLoanPaymentsStatusDTO,
+	GetLoanByIdPaymentsStatusDTO,
 	GetLoanByIdResultPaymentDTO,
 } from '../../dtos/get-loan-by-id-result.dto';
 import { UpdateLoanRequestDTO } from '../../dtos/update-loan-request.dto';
@@ -97,7 +97,7 @@ export class GetLoanByIdComponent implements OnInit {
 	loadingDeleteLoan: boolean = false;
 	loadingRemovePayment: boolean = false;
 
-	loanPaymentsStatus: GetLoanByIdLoanPaymentsStatusDTO;
+	paymentsStatus: GetLoanByIdPaymentsStatusDTO;
 
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -170,7 +170,7 @@ export class GetLoanByIdComponent implements OnInit {
 					getLoanByIdResult.data.payments
 				);
 
-			this.loanPaymentsStatus = getLoanByIdResult.data.loanPaymentsStatus;
+			this.paymentsStatus = getLoanByIdResult.data.paymentsStatus;
 		}
 
 		this.loadingGetLoanById = false;

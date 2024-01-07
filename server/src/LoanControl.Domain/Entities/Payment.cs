@@ -21,6 +21,7 @@ public class Payment : Entity
 
     public DateTime ExpirationDate { get; private set; }
     public DateTime? PaidDate { get; private set; }
+    public bool Paid { get => DateTime.Now >= PaidDate; }
 
     public Loan Loan { get; private set; }
 

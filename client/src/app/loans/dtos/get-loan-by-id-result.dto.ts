@@ -6,11 +6,7 @@ export type GetLoanByIdResultPaymentDTO = {
 	paidDate: Date;
 };
 
-export type GetLoanByIdResultDTO = {
-	name: string;
-	totalFunded: number;
-	createdAt: Date;
-	updatedAt: Date;
+export type GetLoanByIdLoanPaymentsStatusDTO = {
 	paymentsCount: number;
 	paymentsPaid: number;
 	nextPaymentDate: Date;
@@ -19,5 +15,13 @@ export type GetLoanByIdResultDTO = {
 	totalReceived: number;
 	expectedProfit: number;
 	profit: number;
+};
+
+export type GetLoanByIdResultDTO = {
+	name: string;
+	totalFunded: number;
+	createdAt: Date;
+	updatedAt: Date;
 	payments: GetLoanByIdResultPaymentDTO[];
+	loanPaymentsStatus: GetLoanByIdLoanPaymentsStatusDTO;
 };

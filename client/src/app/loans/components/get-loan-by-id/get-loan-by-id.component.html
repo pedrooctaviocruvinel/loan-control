@@ -140,223 +140,123 @@
 	</mat-card-actions>
 </mat-card>
 
-<div class="row">
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Total to be Received</mat-card-title>
-			</mat-card-header>
+@if (loanPaymentsStatus != null) {
+	<div class="row">
+		<div class="col">
+			<app-loan-payment-status
+				title="Total to be Received"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				value="{{
+					loanPaymentsStatus?.totalToBeReceived | currency
+				}}"></app-loan-payment-status>
+		</div>
 
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2">
-							{{ totalToBeReceived | currency }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
+		<div class="col">
+			<app-loan-payment-status
+				title="Total Received"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				value="{{
+					loanPaymentsStatus?.totalReceived | currency
+				}}"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Expected Profit"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				value="{{ loanPaymentsStatus?.expectedProfit | currency }}"
+				valueColor="text-success"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Profit"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				value="{{ loanPaymentsStatus?.profit | currency }}"
+				[valueColor]="
+					loanPaymentsStatus?.profit < 0 ? 'text-danger' : 'text-success'
+				"></app-loan-payment-status>
+		</div>
 	</div>
 
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Total Received</mat-card-title>
-			</mat-card-header>
+	<div class="row">
+		<div class="col">
+			<app-loan-payment-status
+				title="Payments Count"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				[value]="
+					loanPaymentsStatus?.paymentsCount.toString()
+				"></app-loan-payment-status>
+		</div>
 
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2">
-							{{ totalReceived | currency }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
+		<div class="col">
+			<app-loan-payment-status
+				title="Payments Paid"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				[value]="
+					loanPaymentsStatus?.paymentsPaid.toString()
+				"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Remaining Payments"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				[value]="
+					loanPaymentsStatus?.remainingPayments.toString()
+				"></app-loan-payment-status>
+		</div>
+
+		<div class="col">
+			<app-loan-payment-status
+				title="Next Payment"
+				[loading]="loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan"
+				[error]="
+					getLoanByIdErrorCode !== 0 ||
+					updateLoanErrorCode !== 0 ||
+					deleteLoanErrorCode !== 0
+				"
+				value="{{
+					loanPaymentsStatus?.nextPaymentDate | date: 'MM/dd/yyyy'
+				}}"></app-loan-payment-status>
+		</div>
 	</div>
-
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Expected Profit</mat-card-title>
-			</mat-card-header>
-
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2 text-success">
-							{{ expectedProfit | currency }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
-	</div>
-
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Profit</mat-card-title>
-			</mat-card-header>
-
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						@if (profit < 0) {
-							<p class="fs-2 text-danger">
-								{{ profit | currency }}
-							</p>
-						} @else {
-							<p class="fs-2 text-success">
-								{{ profit | currency }}
-							</p>
-						}
-					}
-				}
-			</mat-card-content>
-		</mat-card>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Payments Count</mat-card-title>
-			</mat-card-header>
-
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2">
-							{{ paymentsCount }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
-	</div>
-
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Payments Paid</mat-card-title>
-			</mat-card-header>
-
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2">
-							{{ paymentsPaid }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
-	</div>
-
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Remaining Payments</mat-card-title>
-			</mat-card-header>
-
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2">
-							{{ remainingPayments }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
-	</div>
-
-	<div class="col">
-		<mat-card class="mt-4">
-			<mat-card-header>
-				<mat-card-title>Next Payment</mat-card-title>
-			</mat-card-header>
-
-			<mat-card-content class="mt-4">
-				@if (loadingGetLoanById || loadingUpdateLoan || loadingDeleteLoan) {
-					<app-loading></app-loading>
-				} @else {
-					@if (
-						getLoanByIdErrorCode != 0 ||
-						updateLoanErrorCode != 0 ||
-						deleteLoanErrorCode != 0
-					) {
-						<p>ee</p>
-					} @else {
-						<p class="fs-2">
-							{{ nextPaymentDate | date: 'MM/dd/yyyy' }}
-						</p>
-					}
-				}
-			</mat-card-content>
-		</mat-card>
-	</div>
-</div>
+}
 
 <mat-card class="mt-4">
 	<mat-card-header>

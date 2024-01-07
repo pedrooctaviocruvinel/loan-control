@@ -21,12 +21,16 @@ import { ErrorComponent } from '@/app/shared/components/error/error.component';
 import { LoadingComponent } from '@/app/shared/components/loading/loading.component';
 import { ResultWrapperModel } from '@/app/shared/models/result-wrapper.model';
 
-import { GetLoanByIdResultPaymentDTO } from '../../dtos/get-loan-by-id-result.dto';
+import {
+	GetLoanByIdLoanPaymentsStatusDTO,
+	GetLoanByIdResultPaymentDTO,
+} from '../../dtos/get-loan-by-id-result.dto';
 import { UpdateLoanRequestDTO } from '../../dtos/update-loan-request.dto';
 import { LoanService } from '../../services/loan.service';
 import { PaymentService } from '../../services/payment.service';
 import { AddPaymentDialogComponent } from '../add-payment-dialog/add-payment-dialog.component';
 import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-payment-dialog.component';
+import { LoanPaymentStatusComponent } from './components/loan-payment-status/loan-payment-status.component';
 
 @Component({
 	selector: 'app-get-loan-by-id',
@@ -44,6 +48,7 @@ import { UpdatePaymentDialogComponent } from '../update-payment-dialog/update-pa
 		MatSortModule,
 		CommonModule,
 		MatDialogModule,
+		LoanPaymentStatusComponent,
 	],
 	templateUrl: './get-loan-by-id.component.html',
 })
@@ -92,15 +97,7 @@ export class GetLoanByIdComponent implements OnInit {
 	loadingDeleteLoan: boolean = false;
 	loadingRemovePayment: boolean = false;
 
-	paymentsCount: number = 0;
-	paymentsPaid: number = 0;
-	remainingPayments: number = 0;
-	nextPaymentDate: Date;
-
-	totalToBeReceived: number = 0;
-	totalReceived: number = 0;
-	expectedProfit: number;
-	profit: number = 0;
+	loanPaymentsStatus: GetLoanByIdLoanPaymentsStatusDTO;
 
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -173,15 +170,7 @@ export class GetLoanByIdComponent implements OnInit {
 					getLoanByIdResult.data.payments
 				);
 
-			this.paymentsCount = getLoanByIdResult.data.paymentsCount;
-			this.paymentsPaid = getLoanByIdResult.data.paymentsPaid;
-			this.remainingPayments = getLoanByIdResult.data.remainingPayments;
-			this.remainingPayments = getLoanByIdResult.data.remainingPayments;
-			this.nextPaymentDate = getLoanByIdResult.data.nextPaymentDate;
-			this.totalToBeReceived = getLoanByIdResult.data.totalToBeReceived;
-			this.totalReceived = getLoanByIdResult.data.totalReceived;
-			this.expectedProfit = getLoanByIdResult.data.expectedProfit;
-			this.profit = getLoanByIdResult.data.profit;
+			this.loanPaymentsStatus = getLoanByIdResult.data.loanPaymentsStatus;
 		}
 
 		this.loadingGetLoanById = false;

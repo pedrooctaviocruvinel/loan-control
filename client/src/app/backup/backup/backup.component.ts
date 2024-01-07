@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { ToastrService } from 'ngx-toastr';
 
 import { ErrorComponent } from '@/app/shared/components/error/error.component';
@@ -23,7 +22,6 @@ import { BackupService } from '../services/backup.service';
 		LoadingComponent,
 		ErrorComponent,
 		MatInputModule,
-		MaterialFileInputModule,
 	],
 	templateUrl: './backup.component.html',
 })

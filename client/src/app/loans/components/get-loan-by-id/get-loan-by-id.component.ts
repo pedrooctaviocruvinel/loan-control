@@ -92,6 +92,16 @@ export class GetLoanByIdComponent implements OnInit {
 	loadingDeleteLoan: boolean = false;
 	loadingRemovePayment: boolean = false;
 
+	paymentsCount: number = 0;
+	paymentsPaid: number = 0;
+	remainingPayments: number = 0;
+	nextPaymentDate: Date;
+
+	totalToBeReceived: number = 0;
+	totalReceived: number = 0;
+	expectedProfit: number;
+	profit: number = 0;
+
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -162,6 +172,16 @@ export class GetLoanByIdComponent implements OnInit {
 				new MatTableDataSource<GetLoanByIdResultPaymentDTO>(
 					getLoanByIdResult.data.payments
 				);
+
+			this.paymentsCount = getLoanByIdResult.data.paymentsCount;
+			this.paymentsPaid = getLoanByIdResult.data.paymentsPaid;
+			this.remainingPayments = getLoanByIdResult.data.remainingPayments;
+			this.remainingPayments = getLoanByIdResult.data.remainingPayments;
+			this.nextPaymentDate = getLoanByIdResult.data.nextPaymentDate;
+			this.totalToBeReceived = getLoanByIdResult.data.totalToBeReceived;
+			this.totalReceived = getLoanByIdResult.data.totalReceived;
+			this.expectedProfit = getLoanByIdResult.data.expectedProfit;
+			this.profit = getLoanByIdResult.data.profit;
 		}
 
 		this.loadingGetLoanById = false;

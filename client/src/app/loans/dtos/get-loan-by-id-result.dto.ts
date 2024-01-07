@@ -11,5 +11,13 @@ export type GetLoanByIdResultDTO = {
 	totalFunded: number;
 	createdAt: Date;
 	updatedAt: Date;
+	paymentsCount: number;
+	paymentsPaid: number;
+	nextPaymentDate: Date;
+	remainingPayments: number;
+	totalToBeReceived: number;
+	totalReceived: number;
+	expectedProfit: number;
+	profit: number;
 	payments: GetLoanByIdResultPaymentDTO[];
 };

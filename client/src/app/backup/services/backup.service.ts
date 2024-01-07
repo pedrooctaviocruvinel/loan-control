@@ -10,7 +10,7 @@ import { environment } from '@/environments/environment';
 export class BackupService {
 	async generate(): Promise<ResultWrapperModel<void> | ArrayBuffer> {
 		const generateBackupResponse = await fetch(
-			environment.serverUrl + '/backup',
+			environment.serverUrl + '/backup/generate',
 			{
 				method: 'POST',
 				headers: headers,

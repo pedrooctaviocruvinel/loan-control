@@ -15,7 +15,7 @@ namespace LoanControl.Presentation.Controllers
 
         private readonly IMediator _mediator;
 
-        [HttpPost]
+        [HttpPost("generate")]
         public async Task<IActionResult> GenerateBackup()
         {
             var generateBackupResult = await _mediator.Send(new GenerateBackupCommandRequest());

@@ -7,6 +7,9 @@ public class GenerateBackupCommandResult
 
 public class GenerateBackupLoanDTO
 {
+    public Guid Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public string Name { get; set; }
     public decimal TotalFunded { get; set; }
 
@@ -15,8 +18,10 @@ public class GenerateBackupLoanDTO
 
 public class GenerateBackupLoanPaymentDTO
 {
+    public Guid Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public decimal Value { get; private set; }
-
     public DateTime ExpirationDate { get; private set; }
     public DateTime? PaidDate { get; private set; }
 }

@@ -27,5 +27,25 @@ namespace LoanControl.Presentation.Controllers
 
             return File(file, "application/json", "backup.json");
         }
+
+        [HttpPost("execute")]
+        public async Task<IActionResult> ExecuteBackup([FromForm] IFormFile file)
+        {
+            ExecuteBackupCommandRequest commandRequest;
+
+            using (var streamReader = new StreamReader(file.OpenReadStream()))
+            {
+                var jsonContent = streamReader.ReadToEnd();
+
+                commandRequest = JsonSerializer.Deserialize<ExecuteBackupCommandRequest>(jsonContent);
+            }
+
+            var executeMigrationResult = await _mediator.Send(commandRequest);
+
+            if (!executeMigrationResult.Success)
+                return BadRequest(executeMigrationResult);
+
+            return Ok(executeMigrationResult);
+        }
     }
 }

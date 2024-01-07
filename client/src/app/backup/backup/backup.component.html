@@ -11,6 +11,18 @@
 				<app-error
 					title="Error on generate Backup"
 					[errors]="generateBackupErrors"></app-error>
+			} @else if (executeBackupErrorCode != 0) {
+				@if (executeBackupErrorCode == 3) {
+					<app-error
+						title="Error on generate Backup"
+						[errors]="[
+							'Can\'t execute Backup while having data in database'
+						]"></app-error>
+				} @else {
+					<app-error
+						title="Error on generate Backup"
+						[errors]="generateBackupErrors"></app-error>
+				}
 			} @else {
 				<div class="d-flex align-items-center justify-content-center">
 					<img
@@ -33,13 +45,16 @@
 			<mat-icon fontIcon="cloud_download"></mat-icon>
 			Generate
 		</button>
+
+		<input type="file" (change)="onFileSelected($event)" accept=".json" />
+
 		<button
 			mat-flat-button
 			color="primary"
-			(click)="generateBackup()"
-			[disabled]="uploadBackupButtonDisabled">
+			(click)="executeBackup()"
+			[disabled]="executeBackupButtonDisabled">
 			<mat-icon fontIcon="backup"></mat-icon>
-			Upload
+			Execute
 		</button>
 	</mat-card-actions>
 </mat-card>

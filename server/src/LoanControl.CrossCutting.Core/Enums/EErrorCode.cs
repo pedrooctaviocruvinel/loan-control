@@ -4,5 +4,6 @@ public enum EErrorCode
 {
     NoError = 0,
     LoanDoesntExists = 1,
-    PaymentDoesntExists = 2
+    PaymentDoesntExists = 2,
+    AlreadyHaveData = 3
 }

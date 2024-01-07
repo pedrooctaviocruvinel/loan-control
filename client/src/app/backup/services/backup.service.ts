@@ -26,4 +26,19 @@ export class BackupService {
 
 		return await generateBackupResponse.arrayBuffer();
 	}
+
+	async execute(file: File): Promise<ResultWrapperModel<void>> {
+		const formData = new FormData();
+		formData.append('file', file, 'backup.json');
+
+		const executeBackupResponse = await fetch(
+			environment.serverUrl + '/backup/execute',
+			{
+				method: 'POST',
+				body: formData,
+			}
+		);
+
+		return await executeBackupResponse.json();
+	}
 }

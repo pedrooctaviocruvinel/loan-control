@@ -28,8 +28,14 @@ public class LoanRepository(ApplicationDataContext applicationDataContext) : ILo
             .FirstOrDefaultAsync(l => l.Id == id);
     }
 
+    public async Task<bool> Any() =>
+        await _applicationDataContext.Loans.AnyAsync();
+
     public async Task Add(Loan loan) =>
         await _applicationDataContext.Loans.AddAsync(loan);
+
+    public async Task AddRange(List<Loan> loans) =>
+        await _applicationDataContext.Loans.AddRangeAsync(loans);
 
     public void Update(Loan loan) =>
         _applicationDataContext.Loans.Update(loan);

@@ -1,4 +1,5 @@
-﻿using LoanControl.CrossCutting.Core.Models;
+﻿using LoanControl.CrossCutting.Core.Enums;
+using LoanControl.CrossCutting.Core.Models;
 using LoanControl.Domain.Entities;
 using LoanControl.Domain.Repositories;
 
@@ -13,5 +14,16 @@ public class BackupService(ILoanRepository loanRepository)
         var loans = await _loanRepository.List(true);
 
         return new ResultWrapper<IList<Loan>>(loans);
+    }
+
+    public async Task<ResultWrapper> Execute(List<Loan> loans)
+    {
+        if (await _loanRepository.Any())
+            return new ResultWrapper(EErrorCode.AlreadyHaveData);
+
+        await _loanRepository.AddRange(loans);
+        await _loanRepository.SaveChanges();
+
+        return new ResultWrapper();
     }
 }
